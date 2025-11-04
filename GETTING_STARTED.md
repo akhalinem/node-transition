@@ -44,9 +44,10 @@ Install from: https://www.docker.com/products/docker-desktop
 **Recommended Approach**: Start with direct install, switch to Docker later
 
 - **Direct Install** (Weeks 1-2): https://www.postgresql.org/download/
-  - Mac: `brew install postgresql@15`
+  - Mac: `brew install postgresql@18` ✅ _Installed_
   - Simpler for learning, better performance
   - Data persists automatically
+  - _See `docs/project-meta/2025-11-05_SETUP_LOG.md` for installation details_
 - **Docker** (Week 3+):
   ```bash
   docker run -d --name postgres \
