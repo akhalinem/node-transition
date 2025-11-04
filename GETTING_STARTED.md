@@ -9,41 +9,78 @@ Welcome to your 20-week transformation from React Developer to Backend Engineeri
 ### Required Software
 
 **Node.js** (v18 or later)
+
 ```bash
 node --version  # Should be v18+
 npm --version   # Should be 9+
 ```
+
 Install from: https://nodejs.org/
 
 **Git**
+
 ```bash
 git --version
 ```
 
 **Code Editor**
+
 - VS Code (recommended) or Cursor
 - Install extensions: Node.js, ESLint, Prettier, Docker
 
 **Docker & Docker Compose**
+
 ```bash
 docker --version
 docker-compose --version
 ```
+
 Install from: https://www.docker.com/products/docker-desktop
 
 ### Database & Tools (Install as needed per project)
 
 **PostgreSQL** (for Projects 1, 3, 5)
-- Install: https://www.postgresql.org/download/
-- Or use Docker: `docker run -p 5432:5432 -e POSTGRES_PASSWORD=password postgres`
+
+**Recommended Approach**: Start with direct install, switch to Docker later
+
+- **Direct Install** (Weeks 1-2): https://www.postgresql.org/download/
+  - Mac: `brew install postgresql@15`
+  - Simpler for learning, better performance
+  - Data persists automatically
+- **Docker** (Week 3+):
+  ```bash
+  docker run -d --name postgres \
+    -p 5432:5432 \
+    -e POSTGRES_PASSWORD=password \
+    -v postgres-data:/var/lib/postgresql/data \
+    postgres:15
+  ```
+  - Isolated environment, easy cleanup
+  - Good practice for production workflows
 
 **Redis** (for Projects 1, 2, 4)
-- Install: https://redis.io/download
-- Or use Docker: `docker run -p 6379:6379 redis`
+
+- **Direct Install**: https://redis.io/download/
+  - Mac: `brew install redis`
+- **Docker**:
+  ```bash
+  docker run -d --name redis \
+    -p 6379:6379 \
+    redis:7
+  ```
 
 **MongoDB** (optional, for comparison in Project 3)
-- Install: https://www.mongodb.com/try/download/community
-- Or use Docker: `docker run -p 27017:27017 mongo`
+
+- **Direct Install**: https://www.mongodb.com/try/download/community
+  - Mac: `brew tap mongodb/brew && brew install mongodb-community`
+- **Docker**:
+  ```bash
+  docker run -d --name mongo \
+    -p 27017:27017 \
+    mongo:7
+  ```
+
+> 💡 **Docker vs Direct Install**: Direct install is simpler and faster for learning. Docker provides isolation and is closer to production. Start simple, add Docker complexity as you get comfortable with databases.
 
 ### Optional but Recommended
 
@@ -86,6 +123,7 @@ cat README.md  # Read the overview
 ```
 
 Complete in order:
+
 1. Runtime Architecture (4-6 hours) - Event loop, V8, libuv
 2. Module System (2-3 hours) - CommonJS vs ESM
 3. Streams (3-4 hours) - Readable, Writable, Transform
@@ -107,12 +145,14 @@ cat THEORY_CHECKPOINTS.md  # Know when to pause and study
 ```
 
 Build → Break → Optimize:
+
 - Week 1: Get it working
 - Week 2: Make it production-ready
 
 ### 3. Continue Through Projects 2-5
 
 Follow the same pattern for each project:
+
 1. Read `README.md` for requirements
 2. Check `THEORY_CHECKPOINTS.md` for learning moments
 3. Plan your architecture
@@ -132,24 +172,29 @@ Follow the same pattern for each project:
 ### Weekly Schedule (20-25 hours)
 
 **Weekdays (Monday-Thursday)**: 2-3 hours/day
+
 - Morning or evening coding sessions
 - Focus on project work
 
 **Mid-Week (Wednesday)**: 2-3 hours
+
 - Theory deep dive
 - Study concepts triggered by your work
 
 **Friday**: 2-3 hours
+
 - Code review & refactoring
 - Write tests
 - Update documentation
 
 **Saturday**: 4-6 hours
+
 - Major feature implementation
 - Experiment with patterns
 - System design practice (from Week 6)
 
 **Sunday**: 4-6 hours
+
 - Complete features
 - Study blog posts & codebases
 - Weekly retrospective (30 min)
@@ -157,6 +202,7 @@ Follow the same pattern for each project:
 **Total**: 20-25 hours/week
 
 ### Adjust to Your Schedule
+
 - Can't do weekends? Spread over 5-6 days
 - Busy week? Do minimum 15 hours
 - Extra time? Go deeper into theory
@@ -166,17 +212,20 @@ Follow the same pattern for each project:
 ## 📊 Track Your Progress
 
 ### Daily
+
 - [ ] Code and commit frequently
 - [ ] Document what you learned
 - [ ] Note questions and blockers
 
 ### Weekly
+
 - [ ] Fill out `weekly-logs/week-XX.md`
 - [ ] Complete retrospective template
 - [ ] Update `PROGRESS_TRACKER.md`
 - [ ] Commit your work
 
 ### Per Project
+
 - [ ] Complete all requirements
 - [ ] Write documentation
 - [ ] Run load tests
@@ -208,6 +257,7 @@ git config --global commit.template .gitmessage  # Optional
 ### 3. VS Code Setup
 
 Install recommended extensions:
+
 - ES7+ React/Redux/React-Native snippets
 - ESLint
 - Prettier
@@ -231,16 +281,19 @@ npm install -g clinic       # Performance profiling
 ### Keep These Handy
 
 **Documentation**:
+
 - [Node.js Docs](https://nodejs.org/docs/latest/api/)
 - [MDN Web Docs](https://developer.mozilla.org/en-US/)
 - [PostgreSQL Docs](https://www.postgresql.org/docs/)
 
 **In This Repo**:
+
 - `resources/cheatsheets/` - Quick reference guides
 - `00-fundamentals/VISUAL_GUIDE.md` - Diagrams and visuals
 - Each project's `THEORY_CHECKPOINTS.md`
 
 **External**:
+
 - [Node.js Best Practices](https://github.com/goldbergyoni/nodebestpractices)
 - [System Design Primer](https://github.com/donnemartin/system-design-primer)
 
@@ -249,39 +302,45 @@ npm install -g clinic       # Performance profiling
 ## 🎯 Success Indicators
 
 ### After Fundamentals (Week 0.5)
+
 ✅ Can explain the event loop phases  
 ✅ Understand async patterns deeply  
 ✅ Can work with streams and buffers  
-✅ Proper error handling is second nature  
+✅ Proper error handling is second nature
 
 ### After Project 1 (Week 2)
+
 ✅ Built and deployed a real API  
 ✅ Understand database optimization  
 ✅ Can implement caching effectively  
-✅ Know how to handle scale  
+✅ Know how to handle scale
 
 ### After Project 3 (Week 10)
+
 ✅ Can design complex data models  
 ✅ Handle transactions properly  
 ✅ Write comprehensive tests  
-✅ Integrate external services  
+✅ Integrate external services
 
 ### After Project 5 (Week 20)
+
 ✅ Build production systems from scratch  
 ✅ Make informed architectural decisions  
 ✅ Debug complex issues systematically  
-✅ Ready for backend engineering roles  
+✅ Ready for backend engineering roles
 
 ---
 
 ## 💡 Learning Tips
 
 ### The 70-20-10 Framework
+
 - **70% Project Work**: Build, code, implement
 - **20% Theory**: Study just-in-time when you hit a problem
 - **10% Exploration**: Read blogs, study other code
 
 ### When Stuck
+
 1. Try for 30 minutes yourself
 2. Search for the error/problem
 3. Check official documentation
@@ -291,6 +350,7 @@ npm install -g clinic       # Performance profiling
 **Remember**: Being stuck is where learning happens!
 
 ### Avoid Burnout
+
 - Take breaks every 90 minutes
 - One full day off per week
 - If motivation dips, review what you've built
@@ -327,16 +387,19 @@ node 01-event-loop/event-loop-phases.js
 ## 🆘 Need Help?
 
 ### Resources in This Repo
+
 - Check `resources/tools/troubleshooting/`
 - Each folder has its own README
 - Look for similar issues in project docs
 
 ### External Communities
+
 - Node.js Discord
 - Reddit: r/node, r/backend
 - Stack Overflow (search first!)
 
 ### Documentation
+
 - Always check official docs first
 - Use `--help` flag with commands
 - Read error messages carefully
@@ -346,6 +409,7 @@ node 01-event-loop/event-loop-phases.js
 ## 🎉 Let's Build!
 
 You're about to embark on an intensive 20-week journey. You'll:
+
 - Build 5 production-ready projects
 - Learn distributed systems
 - Master database optimization
@@ -358,5 +422,5 @@ You're about to embark on an intensive 20-week journey. You'll:
 
 ---
 
-*Last Updated: November 2025*  
-*Questions? Document them in your weekly logs!*
+_Last Updated: November 2025_  
+_Questions? Document them in your weekly logs!_
