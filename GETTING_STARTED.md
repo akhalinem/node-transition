@@ -62,7 +62,9 @@ Install from: https://www.docker.com/products/docker-desktop
 **Redis** (for Projects 1, 2, 4)
 
 - **Direct Install**: https://redis.io/download/
-  - Mac: `brew install redis`
+  - Mac: `brew install redis` ✅ _Installed_
+  - Fast in-memory cache and message broker
+  - _See `docs/project-meta/2025-11-06_REDIS_SETUP_LOG.md` for installation details_
 - **Docker**:
   ```bash
   docker run -d --name redis \

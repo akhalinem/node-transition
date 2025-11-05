@@ -56,6 +56,59 @@
   - Creates Launch Agent plist files automatically
   - Much easier than manual launchctl commands
 
+---
+
+### Wednesday, November 6, 2025
+
+**Time Spent**: 30 minutes
+
+**What I Did**:
+
+1. ✅ Installed Redis 8.2.3 via Homebrew
+2. ✅ Started Redis as a background service
+3. ✅ Verified Redis installation and connectivity
+4. ✅ Tested basic Redis operations
+5. ✅ Documented Redis setup process
+
+**Technical Setup Completed**:
+
+- Redis 8.2.3 (latest stable) installed and running
+- Service configured as daemon
+- `redis-cli` command working
+- Connection test successful (PING → PONG)
+- Default port 6379 available
+
+**What I Learned**:
+
+- Redis is significantly lighter than PostgreSQL (~10MB vs ~100MB)
+- Redis 8.2.3 uses native Apple Silicon kqueue for event notification
+- Protected mode enabled by default (secure for local dev)
+- Data persists via RDB snapshots + AOF (Append Only File)
+- Redis runs on port 6379, no conflict with PostgreSQL (5432)
+- In-memory storage provides microsecond latency (vs milliseconds for disk)
+- Both database and cache now ready for URL Shortener project
+
+**Challenges Faced**:
+
+None - installation was smooth after PostgreSQL experience
+
+**Resources Used**:
+
+- Redis documentation
+- Previous daemon/brew services knowledge from yesterday
+- Homebrew's "keg-only" installations require manual PATH setup
+- PostgreSQL 18 includes improved SQL/JSON support
+- Default peer authentication works for local development (no password needed)
+- Service management via `brew services` is clean and reliable
+- **Daemons**: Background processes that run continuously (like postgres, redis)
+  - Run invisibly, provide services to other programs
+  - Auto-restart if they crash, auto-start on login
+  - Convention: often named with 'd' suffix (httpd, sshd, mysqld)
+- **brew services**: User-friendly wrapper around macOS launchctl
+  - Simplifies daemon management (start/stop/restart)
+  - Creates Launch Agent plist files automatically
+  - Much easier than manual launchctl commands
+
 **Challenges Faced**:
 
 - `psql` command not found initially after installation
@@ -76,7 +129,7 @@
 ### Environment Setup ✅
 
 - [x] PostgreSQL 18 installed and configured
-- [ ] Redis installation
+- [x] Redis 8.2.3 installed and configured
 - [ ] Docker Desktop (optional for later)
 - [ ] Database GUI tool (TablePlus or pgAdmin)
 - [ ] Postman/Insomnia for API testing
@@ -137,10 +190,12 @@
 
 ### Notes for Next Time
 
-- Remember to stop PostgreSQL service when not in use (save battery)
+- Remember to stop PostgreSQL/Redis services when not in use (save battery)
 - Use `brew services list` to check what's running
 - Create project databases with descriptive names
 - Document connection strings for each project
+- Redis is much lighter than PostgreSQL - can keep running
+- Both services now ready for URL Shortener project
 
 ---
 
@@ -191,6 +246,7 @@
 ### Documentation Created
 
 - `docs/project-meta/2025-11-05_SETUP_LOG.md` - PostgreSQL installation details
+- `docs/project-meta/2025-11-06_REDIS_SETUP_LOG.md` - Redis installation details
 - `resources/tools/setup-guides/docker-vs-direct-install.md` - Comprehensive comparison
 - `resources/tools/brew-services-and-daemons.md` - Background services & process management
 
