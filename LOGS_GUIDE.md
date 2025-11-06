@@ -14,13 +14,36 @@ Simple chronological logging system for your learning journey.
 
 ## Quick Usage
 
+### Manual (Recommended)
+
 Just open `LOGS.md` and type:
 
 ```markdown
 **14:23** - Started working on event loop examples
 ```
 
-That's it! Keep it simple and manual.
+### With Helper Script
+
+```bash
+# Make log.sh accessible
+chmod +x log.sh
+
+# Use it
+./log.sh "Your log entry"
+```
+
+Or add alias to `~/.zshrc`:
+
+```bash
+alias log='~/Programming/learning/NodeJS/node-transition/log.sh'
+```
+
+Then:
+
+```bash
+log "Started event loop study"
+log "Completed exercise 1"
+```
 
 ---
 
