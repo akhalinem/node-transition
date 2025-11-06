@@ -107,7 +107,8 @@ node-transition/
 ├── system-design-practice/   # Weekly exercises (start Week 6)
 ├── interview-prep/           # Optional parallel track
 ├── portfolio/                # Job search materials
-└── weekly-logs/              # Your learning journal
+├── LOGS.md                   # Your learning timeline
+└── LOGS_GUIDE.md             # How to log your journey
 ```
 
 ---
@@ -222,7 +223,7 @@ Follow the same pattern for each project:
 
 ### Weekly
 
-- [ ] Fill out `weekly-logs/week-XX.md`
+- [ ] Update `LOGS.md` with your progress
 - [ ] Complete retrospective template
 - [ ] Update `PROGRESS_TRACKER.md`
 - [ ] Commit your work
@@ -370,7 +371,7 @@ npm install -g clinic       # Performance profiling
 - [ ] Read `README.md` (main roadmap)
 - [ ] Read this file completely
 - [ ] Set up your development environment
-- [ ] Create `weekly-logs/week-00-fundamentals.md`
+- [ ] Open `LOGS.md` and add your first entry
 - [ ] Start `00-fundamentals/01-runtime-architecture/`
 
 ### Your First Commands
@@ -426,4 +427,4 @@ You're about to embark on an intensive 20-week journey. You'll:
 ---
 
 _Last Updated: November 2025_  
-_Questions? Document them in your weekly logs!_
+_Questions? Document them in LOGS.md!_
