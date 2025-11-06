@@ -33,8 +33,12 @@ Key learning: Daemons are background processes that run continuously
 
 ---
 
-### Thursday, November 7
+### Friday, November 7
 
-_(Add your entries here as you work)_
-
----
+**02:30** - Reading the visual guide on 00-fundamentals
+**02:34** - Wanted to log file extension, but copilot says it's mainly used for machine-generated system-logs and we should better stick to the markdown format
+**02:38** - hidden classes concept used for machine code optimization looks interesting, but I'm not really sure it'd even be useful to know this info for backend development
+**02:41** - it says the order of properties matters when defining objects in javascript, interesting
+**02:43** - I'm still not confident in threads, thread pools. I really want to learn threads and parallelism overall better. Hopefully, I'll get better using this guide.
+**02:45** - finished reading the visual guide
+**02:46** - started reading the readme in 01 module

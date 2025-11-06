@@ -22,28 +22,45 @@ Just open `LOGS.md` and type:
 **14:23** - Started working on event loop examples
 ```
 
-### With Helper Script
+### With Helper Script (Interactive)
 
 ```bash
-# Make log.sh accessible
+# Make log.sh accessible (one time)
 chmod +x log.sh
 
-# Use it
-./log.sh "Your log entry"
+# Start interactive logger
+./log.sh
 ```
 
-Or add alias to `~/.zshrc`:
+Then just type your entries continuously:
+
+```
+📝 Interactive Logger
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Type your log entries (one per line)
+Press Ctrl+C to exit
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+> Started event loop study
+✓ Logged: 14:23 - Started event loop study
+> Completed exercise 1
+✓ Logged: 14:45 - Completed exercise 1
+>
+```
+
+**Or** use one-off mode by passing an argument:
+
+```bash
+./log.sh "Quick entry"
+```
+
+Optional alias for `~/.zshrc`:
 
 ```bash
 alias log='~/Programming/learning/NodeJS/node-transition/log.sh'
 ```
 
-Then:
-
-```bash
-log "Started event loop study"
-log "Completed exercise 1"
-```
+Then just type `log` to start interactive mode!
 
 ---
 
