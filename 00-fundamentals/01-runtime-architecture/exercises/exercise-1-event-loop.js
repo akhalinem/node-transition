@@ -5,12 +5,17 @@
  * Then run the code to verify your understanding
  */
 
+const fs = require('fs');
+
 console.log('START');
 
-setTimeout(() => {
-  console.log('setTimeout 1');
-  Promise.resolve().then(() => console.log('Promise in setTimeout 1'));
-}, 0);
+fs.readFile(__filename, () => {
+  setTimeout(() => {
+    console.log('setTimeout 1');
+    Promise.resolve().then(() => console.log('Promise in setTimeout 1'));
+    setImmediate(() => console.log('setImmediate in setTimeout'))
+  }, 0);
+})
 
 setTimeout(() => {
   console.log('setTimeout 2');

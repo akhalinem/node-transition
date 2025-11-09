@@ -36,6 +36,7 @@ async function goodAsyncOperation() {
 }
 
 goodAsyncOperation();
+console.log('Doing other work while file is being read...\n');
 
 // Give it time to complete
 setTimeout(() => {
@@ -92,13 +93,15 @@ setTimeout(() => {
       
       const largeArray = Array.from({ length: 1000 }, (_, i) => i);
       let processedCount = 0;
-      
+
       console.log('Processing 1000 items with event loop breaks...');
       const start = Date.now();
       
       processArrayAsync(
         largeArray,
         (item) => {
+          console.log(`Processing item ${item}`);
+
           // Simulate some work
           processedCount++;
         },
@@ -106,9 +109,16 @@ setTimeout(() => {
           console.log(`✅ Processed ${processedCount} items in ${Date.now() - start}ms`);
           console.log('Event loop could process other tasks between items!\n');
           
-          finishDemo();
+          // finishDemo();
         }
       );
+
+       setInterval(() => {
+        console.log(`Heartbeat ${processedCount} - Event loop is responsive`);
+        if (processedCount === largeArray.length) {
+          finishDemo();
+        }
+      }, 500);
     }, 1000);
   }, 1000);
 }, 500);
@@ -143,3 +153,5 @@ process.on('SIGINT', () => {
   console.log('\nShutting down gracefully...');
   process.exit(0);
 });
+
+console.log('END OF DEMONSTRATION\n');

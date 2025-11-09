@@ -63,4 +63,4 @@ function blockEventLoop() {
 }
 
 // Uncomment to see blocking behavior:
-// blockEventLoop();
+blockEventLoop();

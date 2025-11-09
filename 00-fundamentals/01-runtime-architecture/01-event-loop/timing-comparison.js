@@ -112,3 +112,5 @@ recursiveSetImmediate();
 setTimeout(() => {
   console.log('setTimeout - can run between setImmediate calls');
 }, 0);
+
+console.log('\n=== END OF DEMONSTRATION ===\n');

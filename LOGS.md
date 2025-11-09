@@ -42,3 +42,33 @@ Key learning: Daemons are background processes that run continuously
 **02:43** - I'm still not confident in threads, thread pools. I really want to learn threads and parallelism overall better. Hopefully, I'll get better using this guide.
 **02:45** - finished reading the visual guide
 **02:46** - started reading the readme in 01 module
+**02:56** - finished the readme of 01 module
+**02:57** - there was a reference to something called libuv, read its docs, looks too low-level for me.
+
+### Saturday, November 8
+
+**00:41** - started reading event-loop-phases.js file. I'm looking at the code, but feels like I should study the theory first.
+**00:42** - Checked the main readme for the module and found a reading - https://nodejs.org/en/learn/asynchronous-work/event-loop-timers-and-nexttick, reading it now.
+**23:50** - the doc was not enough, I had to read some external resources to get a better idea of these phases
+**23:53** - I was able to predict the order of execution correctly in the first try without looking at the answer in event-loop-phases.js
+
+### Sunday, November 9
+
+**00:20** - I chatter with claude and got some better idea on micro tasks
+**00:20** - Finished the microtasks-vs-macrotasks.js, was able to predict the order of execution in the first try
+**00:20** - started timin-comparison.js
+**01:46** - didn't quite get the different of recursive calls of nextTick and setImmediate
+**01:53** - I see the difference now, nextTick runs between phases, so it makes up an infinitely long queue of micro-tasks. setImmediate on the other hand schedules yet another callback for the next iteration
+**03:05** - finished the timing-comparison.js
+**03:05** - reading the event-loop-blocking.js
+**04:08** - setImmediate looks cool
+**04:09** - I wonder why I have never seen it before
+**14:15** - I'm now thinking that react core team probably implemented concurrent features using setImmediate API or something. Does browser runtime have setImmediate API or similar thing or it's unique to node runtime?
+**14:30** - doing the exercise-1-event-loop.js
+**14:30** - I almost predicted the order of execution, but I thought the timeout callbacks would execute its queue fully and then microtasks would execute before stepping out of the timer phase. But the actual execution was a bit different, after each timeout callback execution, the microtasks queue inserted and all the microtasks got executed before the next timer callback.
+**14:36** - Turns out microtasks get executed between each callback in every phase, not between phases
+**14:41** - created another exercise on event loop
+**14:41** - let's give this one a try and see how good I learnt the concept
+**16:44** - it was tough and I made mistakes again, but I think I got the idea now. timer, i/o, check phases all process macrotasks. Between each macrotask, we empty microtasks queue. Microtasks start with nextTick queue, then promises queue. After that, if there microtask is still not empty, we go through the queues again. Once the microtask queues are empty, we go to the next phase (step). When processsing promise queue, we don't switch to other thing until we empty the promise queue, that's important.
+**16:45** - Also, I/O calls finish time is non-deterministic, we can't really predict the ordering with I/O callbacks.
+**18:13** - All good now
