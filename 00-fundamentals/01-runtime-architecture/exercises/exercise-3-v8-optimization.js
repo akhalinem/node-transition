@@ -16,7 +16,7 @@ function testConsistentObjects() {
   const objects = [];
   
   // Consistent structure - all objects share same hidden class
-  for (let i = 0; i < 1000000; i++) {
+  for (let i = 0; i < 10_000_000; i++) {
     objects.push({
       id: i,
       name: `User ${i}`,
@@ -25,7 +25,7 @@ function testConsistentObjects() {
     });
   }
   
-  // Access property 1 million times
+  // Access property 10 million times
   let sum = 0;
   for (let obj of objects) {
     sum += obj.age;
@@ -39,8 +39,8 @@ function testInconsistentObjects() {
   const objects = [];
   
   // Inconsistent structure - different hidden classes
-  for (let i = 0; i < 1000000; i++) {
-    if (i % 2 === 0) {
+  for (let i = 0; i < 10_000_000; i++) {
+    if (Math.random() < 0.5) {
       objects.push({
         id: i,
         name: `User ${i}`,
@@ -49,15 +49,15 @@ function testInconsistentObjects() {
       });
     } else {
       objects.push({
-        active: true,
-        age: 25,
-        name: `User ${i}`,
-        id: i
+        active: false,
+        age: 22,
+        name: `Inactive User ${i}`,
+        id: i+1
       });
     }
   }
   
-  // Access property 1 million times
+  // Access property 10 million times
   let sum = 0;
   for (let obj of objects) {
     sum += obj.age;
@@ -85,7 +85,7 @@ console.log(`Difference: ${diff}% slower with inconsistent structure\n`);
 function testStaticProperties() {
   const start = Date.now();
   
-  for (let i = 0; i < 1000000; i++) {
+  for (let i = 0; i < 10_000_000; i++) {
     const obj = {
       id: i,
       name: `User ${i}`,
@@ -101,7 +101,7 @@ function testStaticProperties() {
 function testDynamicProperties() {
   const start = Date.now();
   
-  for (let i = 0; i < 1000000; i++) {
+  for (let i = 0; i < 10_000_000; i++) {
     const obj = {
       id: i,
       name: `User ${i}`

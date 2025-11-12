@@ -75,7 +75,7 @@ console.log('Starting 5 crypto operations with 4 threads:');
 
 const start = Date.now();
 
-for (let i = 1; i <= 5; i++) {
+for (let i = 1; i <= 100; i++) {
   crypto.pbkdf2('password', 'salt', 100000, 64, 'sha512', (err, key) => {
     console.log(`Task ${i} completed in ${Date.now() - start}ms`);
   });

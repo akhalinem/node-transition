@@ -72,3 +72,21 @@ Key learning: Daemons are background processes that run continuously
 **16:44** - it was tough and I made mistakes again, but I think I got the idea now. timer, i/o, check phases all process macrotasks. Between each macrotask, we empty microtasks queue. Microtasks start with nextTick queue, then promises queue. After that, if there microtask is still not empty, we go through the queues again. Once the microtask queues are empty, we go to the next phase (step). When processsing promise queue, we don't switch to other thing until we empty the promise queue, that's important.
 **16:45** - Also, I/O calls finish time is non-deterministic, we can't really predict the ordering with I/O callbacks.
 **18:13** - All good now
+**18:30** - with that, the event-loop module is done
+**18:34** - starting the 02-v8-engine module
+### Tuesday, November 11
+
+**00:43** - finished v8-engine
+### Thursday, November 13
+
+**01:02** - read some more external sources on v8
+**01:02** - doing the exercise-3-v8-optimization.js now
+**01:03** - weird, the inconsistentObjects taking less time than the consistent one. Maybe nodejs did some improvements in later versions?
+**01:09** - these details look too much, especially after seeing the opposite in action
+**01:09** - skimming the exercise
+**01:10** - reading the next - threadpool-demo.js
+**01:47** - read some more external sources
+**01:48** - libuv's thread pool makes sense now
+**01:50** - doing the thread pool exercise now
+**01:56** - skimmed, skipping it
+**02:06** - wrapping up the 01-runtime-architechure module
