@@ -90,3 +90,19 @@ Key learning: Daemons are background processes that run continuously
 **01:50** - doing the thread pool exercise now
 **01:56** - skimmed, skipping it
 **02:06** - wrapping up the 01-runtime-architechure module
+### Sunday, November 16
+
+**00:00** - generated materials for 02-module-system
+**00:00** - finished 01-commonjs-basics
+**00:05** - finished 02-esm-basics
+**00:05** - commonjs module system seems better for server-side code
+### Monday, November 17
+
+**00:34** - finished module caching
+**00:43** - started circular dependencies
+**00:43** - interesting how nodejs handles thme with empty/partial exports
+**10:37** - finished circular dependencies
+**10:58** - finished module resolution
+**11:03** - started exercises
+**11:16** - skimmed/skipped cjs-to-esm exercise
+**11:40** - finished circular deps exercise
