@@ -106,3 +106,8 @@ Key learning: Daemons are background processes that run continuously
 **11:03** - started exercises
 **11:16** - skimmed/skipped cjs-to-esm exercise
 **11:40** - finished circular deps exercise
+### Tuesday, November 18
+
+**00:51** - skipped the last exercise, exercise-3-dual-package. It was much informative to me.
+**00:52** - wrapping up the module system
+**00:52** - starting 03-streams
