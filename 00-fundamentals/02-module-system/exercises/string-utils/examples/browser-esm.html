@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>String Utils - ES Module Example</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    h1 { color: #2563eb; }
+    h2 { color: #4b5563; margin-top: 30px; }
+    .example {
+      background: #f3f4f6;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 15px 0;
+    }
+    .result {
+      background: #d1fae5;
+      padding: 10px;
+      border-radius: 4px;
+      margin-top: 10px;
+      font-family: 'Courier New', monospace;
+    }
+    code {
+      background: #e5e7eb;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎯 String Utils - Modern Browser (ES Modules)</h1>
+  <p>Using native ES modules in the browser with <code>&lt;script type="module"&gt;</code></p>
+
+  <div class="example">
+    <h2>Named Imports</h2>
+    <div id="named-result" class="result">Running tests...</div>
+  </div>
+
+  <div class="example">
+    <h2>All Functions</h2>
+    <div id="all-result" class="result">Running tests...</div>
+  </div>
+
+  <div class="example">
+    <h2>Interactive Form</h2>
+    <input type="text" id="name" placeholder="Enter your name" style="width: 100%; padding: 8px; margin: 5px 0;">
+    <input type="email" id="email" placeholder="Enter your email" style="width: 100%; padding: 8px; margin: 5px 0;">
+    <button onclick="window.validateForm()" style="padding: 8px 16px;">Validate</button>
+    <div id="form-result" class="result" style="margin-top: 10px;"></div>
+  </div>
+
+  <!-- Modern ES Module import -->
+  <script type="module">
+    // Import named functions
+    import {
+      capitalize,
+      camelCase,
+      kebabCase,
+      snakeCase,
+      isEmail,
+      isURL,
+      isEmpty,
+      hasMinLength
+    } from '../dist/string-utils.esm.js';
+
+    console.log('✅ ES Module loaded successfully!');
+
+    // Test named imports
+    function testNamedImports() {
+      const input = 'hello world from browser';
+      const results = [
+        `Input: "${input}"`,
+        `capitalize: ${capitalize(input)}`,
+        `camelCase: ${camelCase(input)}`,
+        `kebabCase: ${kebabCase(input)}`,
+        `snakeCase: ${snakeCase(input)}`
+      ];
+
+      document.getElementById('named-result').innerHTML = results.join('<br>');
+    }
+
+    // Test all functions
+    function testAllFunctions() {
+      const tests = [
+        { name: 'Email validation', fn: () => isEmail('test@example.com'), expected: true },
+        { name: 'URL validation', fn: () => isURL('https://example.com'), expected: true },
+        { name: 'Empty string', fn: () => isEmpty(''), expected: true },
+        { name: 'Min length', fn: () => hasMinLength('hello', 3), expected: true },
+        { name: 'camelCase', fn: () => camelCase('hello-world'), expected: 'helloWorld' },
+      ];
+
+      const results = tests.map(test => {
+        try {
+          const result = test.fn();
+          const passed = result === test.expected;
+          const icon = passed ? '✅' : '❌';
+          return `${icon} ${test.name}: ${result}`;
+        } catch (error) {
+          return `❌ ${test.name}: Error - ${error.message}`;
+        }
+      });
+
+      document.getElementById('all-result').innerHTML = results.join('<br>');
+    }
+
+    // Validate form (exposed to global scope for onclick)
+    window.validateForm = function() {
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+
+      const errors = [];
+      const results = [];
+
+      // Validate name
+      if (isEmpty(name)) {
+        errors.push('❌ Name is required');
+      } else if (!hasMinLength(name, 2)) {
+        errors.push('❌ Name must be at least 2 characters');
+      } else {
+        results.push(`✅ Name: ${capitalize(name)}`);
+        results.push(`   → Username: ${snakeCase(name)}`);
+      }
+
+      // Validate email
+      if (isEmpty(email)) {
+        errors.push('❌ Email is required');
+      } else if (!isEmail(email)) {
+        errors.push('❌ Invalid email format');
+      } else {
+        results.push(`✅ Email: ${email}`);
+      }
+
+      const output = [...errors, ...results];
+      document.getElementById('form-result').innerHTML = output.join('<br>');
+    };
+
+    // Run tests on load
+    testNamedImports();
+    testAllFunctions();
+  </script>
+
+  <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #e5e7eb;">
+    <h3>How it works:</h3>
+    <ol>
+      <li>Use <code>&lt;script type="module"&gt;</code></li>
+      <li>Import functions with <code>import { ... } from</code></li>
+      <li>Modern browsers support ES modules natively!</li>
+      <li>No global namespace pollution</li>
+      <li>Better for modern web apps</li>
+    </ol>
+    
+    <p><strong>Note:</strong> This requires a local server to work due to CORS restrictions.</p>
+    <p>Run: <code>python3 -m http.server 8000</code> or <code>npx serve</code></p>
+  </div>
+</body>
+</html>

@@ -1,15 +1,22 @@
 {
   "name": "string-utils",
   "version": "1.0.0",
-  "description": "A comprehensive string utilities library with TypeScript support",
+  "description": "A comprehensive string utilities library with TypeScript and browser support",
   "main": "./src/index.cjs",
   "module": "./src/index.mjs",
+  "browser": "./dist/string-utils.js",
   "types": "./src/index.d.ts",
   "exports": {
     ".": {
       "types": "./src/index.d.ts",
+      "browser": {
+        "import": "./dist/string-utils.esm.js",
+        "require": "./dist/string-utils.js",
+        "default": "./dist/string-utils.js"
+      },
       "import": "./src/index.mjs",
-      "require": "./src/index.cjs"
+      "require": "./src/index.cjs",
+      "default": "./src/index.cjs"
     },
     "./case": {
       "types": "./src/case.d.ts",
@@ -26,14 +33,20 @@
     "src/**/*.js",
     "src/**/*.mjs",
     "src/**/*.cjs",
-    "src/**/*.d.ts"
+    "src/**/*.d.ts",
+    "dist/**/*.js"
   ],
+  "unpkg": "./dist/string-utils.min.js",
+  "jsdelivr": "./dist/string-utils.min.js",
   "keywords": [
     "string",
     "utilities",
     "validation",
     "case-conversion",
-    "typescript"
+    "typescript",
+    "browser",
+    "umd",
+    "esm"
   ],
   "author": "",
   "license": "MIT"

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>String Utils - Script Tag Example</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    h1 { color: #2563eb; }
+    h2 { color: #4b5563; margin-top: 30px; }
+    .example {
+      background: #f3f4f6;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 15px 0;
+    }
+    .result {
+      background: #d1fae5;
+      padding: 10px;
+      border-radius: 4px;
+      margin-top: 10px;
+      font-family: 'Courier New', monospace;
+    }
+    code {
+      background: #e5e7eb;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+    }
+    .error {
+      background: #fee2e2;
+      color: #dc2626;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎯 String Utils - Browser Example (UMD)</h1>
+  <p>Using the library via <code>&lt;script&gt;</code> tag</p>
+
+  <div class="example">
+    <h2>Case Conversion</h2>
+    <button onclick="testCaseConversion()">Run Case Tests</button>
+    <div id="case-result" class="result"></div>
+  </div>
+
+  <div class="example">
+    <h2>Validation</h2>
+    <button onclick="testValidation()">Run Validation Tests</button>
+    <div id="validation-result" class="result"></div>
+  </div>
+
+  <div class="example">
+    <h2>User Input Test</h2>
+    <input type="text" id="user-input" placeholder="Enter text..." style="width: 100%; padding: 8px; margin: 10px 0;">
+    <button onclick="transformInput()">Transform to camelCase</button>
+    <div id="transform-result" class="result"></div>
+  </div>
+
+  <!-- Load the UMD build -->
+  <script src="../dist/string-utils.js"></script>
+
+  <script>
+    console.log('StringUtils loaded:', StringUtils);
+
+    function testCaseConversion() {
+      const input = 'hello-world';
+      const results = [];
+
+      results.push(`Input: "${input}"`);
+      results.push(`capitalize: ${StringUtils.capitalize(input)}`);
+      results.push(`camelCase: ${StringUtils.camelCase(input)}`);
+      results.push(`kebabCase: ${StringUtils.kebabCase(input)}`);
+      results.push(`snakeCase: ${StringUtils.snakeCase(input)}`);
+      results.push(`toUpperCase: ${StringUtils.toUpperCase(input)}`);
+      results.push(`toLowerCase: ${StringUtils.toLowerCase(input)}`);
+
+      document.getElementById('case-result').innerHTML = results.join('<br>');
+    }
+
+    function testValidation() {
+      const tests = [
+        { fn: 'isEmail', input: 'test@example.com', expected: true },
+        { fn: 'isEmail', input: 'invalid', expected: false },
+        { fn: 'isURL', input: 'https://example.com', expected: true },
+        { fn: 'isURL', input: 'not a url', expected: false },
+        { fn: 'isUUID', input: '550e8400-e29b-41d4-a716-446655440000', expected: true },
+        { fn: 'isEmpty', input: '', expected: true },
+        { fn: 'isEmpty', input: 'hello', expected: false },
+      ];
+
+      const results = tests.map(test => {
+        const result = StringUtils[test.fn](test.input);
+        const passed = result === test.expected;
+        const icon = passed ? '✅' : '❌';
+        return `${icon} ${test.fn}("${test.input}") = ${result} (expected ${test.expected})`;
+      });
+
+      document.getElementById('validation-result').innerHTML = results.join('<br>');
+    }
+
+    function transformInput() {
+      const input = document.getElementById('user-input').value;
+      
+      if (StringUtils.isEmpty(input)) {
+        document.getElementById('transform-result').innerHTML = '⚠️ Please enter some text';
+        document.getElementById('transform-result').classList.add('error');
+        return;
+      }
+
+      document.getElementById('transform-result').classList.remove('error');
+      
+      const camel = StringUtils.camelCase(input);
+      const kebab = StringUtils.kebabCase(input);
+      const snake = StringUtils.snakeCase(input);
+      
+      const results = [
+        `Original: "${input}"`,
+        `camelCase: ${camel}`,
+        `kebab-case: ${kebab}`,
+        `snake_case: ${snake}`
+      ];
+
+      document.getElementById('transform-result').innerHTML = results.join('<br>');
+    }
+
+    // Auto-run tests on load
+    window.addEventListener('load', () => {
+      testCaseConversion();
+      testValidation();
+    });
+  </script>
+
+  <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #e5e7eb;">
+    <h3>How it works:</h3>
+    <ol>
+      <li>The UMD build is loaded via <code>&lt;script&gt;</code> tag</li>
+      <li>It creates a global <code>StringUtils</code> object</li>
+      <li>All functions are available as <code>StringUtils.functionName()</code></li>
+      <li>Works in any browser without a build step!</li>
+    </ol>
+    
+    <p><strong>Check the browser console</strong> to see the StringUtils object!</p>
+  </div>
+</body>
+</html>

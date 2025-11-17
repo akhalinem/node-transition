@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>String Utils - CDN Example</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    h1 { color: #2563eb; }
+    .example {
+      background: #f3f4f6;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 15px 0;
+    }
+    .result {
+      background: #d1fae5;
+      padding: 10px;
+      border-radius: 4px;
+      margin-top: 10px;
+      font-family: 'Courier New', monospace;
+    }
+    code {
+      background: #e5e7eb;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+    }
+    .code-block {
+      background: #1f2937;
+      color: #f3f4f6;
+      padding: 15px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-family: 'Courier New', monospace;
+      margin: 15px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>🚀 String Utils - CDN Example</h1>
+  <p>Load the library directly from a CDN (unpkg or jsDelivr)</p>
+
+  <div class="example">
+    <h2>✅ Quick Demo</h2>
+    <div id="demo-result" class="result">Running tests...</div>
+  </div>
+
+  <div class="example">
+    <h2>📦 How to Use (UMD via CDN)</h2>
+    <p>Add this to your HTML:</p>
+    <div class="code-block">
+&lt;!-- Option 1: unpkg --&gt;
+&lt;script src="https://unpkg.com/string-utils/dist/string-utils.min.js"&gt;&lt;/script&gt;
+
+&lt;!-- Option 2: jsDelivr --&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/string-utils/dist/string-utils.min.js"&gt;&lt;/script&gt;
+
+&lt;script&gt;
+  // Use StringUtils globally
+  const result = StringUtils.capitalize('hello');
+  console.log(result); // "Hello"
+&lt;/script&gt;
+    </div>
+  </div>
+
+  <div class="example">
+    <h2>📦 How to Use (ES Module via CDN)</h2>
+    <p>Modern browsers with native ES modules:</p>
+    <div class="code-block">
+&lt;script type="module"&gt;
+  // Import from CDN
+  import { capitalize, isEmail } from 'https://unpkg.com/string-utils/dist/string-utils.esm.js';
+  
+  const name = capitalize('john doe');
+  const valid = isEmail('test@example.com');
+  
+  console.log(name, valid);
+&lt;/script&gt;
+    </div>
+  </div>
+
+  <div class="example">
+    <h2>🎯 Live Example</h2>
+    <p>Enter text to see transformations:</p>
+    <input type="text" id="text-input" placeholder="Type something..." style="width: 100%; padding: 10px; margin: 10px 0;">
+    <div id="transform-output" class="result"></div>
+  </div>
+
+  <!-- For this demo, we'll use the local file -->
+  <!-- In production, you'd use: https://unpkg.com/string-utils -->
+  <script src="../dist/string-utils.min.js"></script>
+
+  <script>
+    // Demo on page load
+    function runDemo() {
+      const tests = [
+        'capitalize("hello world") → ' + StringUtils.capitalize('hello world'),
+        'camelCase("hello-world") → ' + StringUtils.camelCase('hello-world'),
+        'kebabCase("helloWorld") → ' + StringUtils.kebabCase('helloWorld'),
+        'snakeCase("Hello World") → ' + StringUtils.snakeCase('Hello World'),
+        'isEmail("test@example.com") → ' + StringUtils.isEmail('test@example.com'),
+        'isURL("https://example.com") → ' + StringUtils.isURL('https://example.com'),
+      ];
+
+      document.getElementById('demo-result').innerHTML = tests.join('<br>');
+    }
+
+    // Live transformation
+    const input = document.getElementById('text-input');
+    const output = document.getElementById('transform-output');
+
+    input.addEventListener('input', (e) => {
+      const text = e.target.value;
+      
+      if (StringUtils.isEmpty(text)) {
+        output.innerHTML = 'Type something to see transformations...';
+        return;
+      }
+
+      const results = [
+        `<strong>Original:</strong> ${text}`,
+        `<strong>capitalize:</strong> ${StringUtils.capitalize(text)}`,
+        `<strong>camelCase:</strong> ${StringUtils.camelCase(text)}`,
+        `<strong>kebabCase:</strong> ${StringUtils.kebabCase(text)}`,
+        `<strong>snakeCase:</strong> ${StringUtils.snakeCase(text)}`,
+        `<strong>uppercase:</strong> ${StringUtils.toUpperCase(text)}`,
+        `<strong>lowercase:</strong> ${StringUtils.toLowerCase(text)}`,
+      ];
+
+      output.innerHTML = results.join('<br>');
+    });
+
+    // Run demo on load
+    runDemo();
+  </script>
+
+  <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #e5e7eb;">
+    <h3>📚 CDN Benefits:</h3>
+    <ul>
+      <li>✅ No npm install needed</li>
+      <li>✅ No build step required</li>
+      <li>✅ Cached across websites</li>
+      <li>✅ Always up-to-date</li>
+      <li>✅ Perfect for prototypes and demos</li>
+    </ul>
+
+    <p><strong>File sizes:</strong></p>
+    <ul>
+      <li>string-utils.js (UMD) - ~3KB</li>
+      <li>string-utils.min.js - ~1.5KB</li>
+      <li>string-utils.esm.js - ~2KB</li>
+    </ul>
+  </div>
+</body>
+</html>
