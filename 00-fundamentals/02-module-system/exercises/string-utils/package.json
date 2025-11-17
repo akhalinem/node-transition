@@ -1,18 +1,40 @@
 {
   "name": "string-utils",
   "version": "1.0.0",
+  "description": "A comprehensive string utilities library with TypeScript support",
+  "main": "./src/index.cjs",
+  "module": "./src/index.mjs",
+  "types": "./src/index.d.ts",
   "exports": {
     ".": {
+      "types": "./src/index.d.ts",
       "import": "./src/index.mjs",
       "require": "./src/index.cjs"
     },
     "./case": {
+      "types": "./src/case.d.ts",
       "import": "./src/case.mjs",
       "require": "./src/case.cjs"
     },
     "./validation": {
+      "types": "./src/validation.d.ts",
       "import": "./src/validation.mjs",
       "require": "./src/validation.cjs"
     }
-  }
+  },
+  "files": [
+    "src/**/*.js",
+    "src/**/*.mjs",
+    "src/**/*.cjs",
+    "src/**/*.d.ts"
+  ],
+  "keywords": [
+    "string",
+    "utilities",
+    "validation",
+    "case-conversion",
+    "typescript"
+  ],
+  "author": "",
+  "license": "MIT"
 }
