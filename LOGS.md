@@ -111,3 +111,13 @@ Key learning: Daemons are background processes that run continuously
 **00:51** - skipped the last exercise, exercise-3-dual-package. It was much informative to me.
 **00:52** - wrapping up the module system
 **00:52** - starting 03-streams
+### Thursday, November 20
+
+**00:11** - got to know what backpressure is
+### Thursday, November 27
+
+**00:17** - just finished 04-piping-streams, looks interesting
+### Friday, November 28
+
+**03:38** - finished examples for streams
+**03:38** - starting exercises now
