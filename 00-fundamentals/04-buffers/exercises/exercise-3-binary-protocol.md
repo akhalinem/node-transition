@@ -67,6 +67,22 @@ Payload: Message-specific data
 Status: 0=Success, 1=Not Found, 2=Error
 ```
 
+**ERROR Message**:
+
+```
+┌──────────────┬───────────────┐
+│ Error Code   │ Error Message │
+│ 2 bytes      │ Variable      │
+└──────────────┴───────────────┘
+
+Error Codes:
+  0x0001 - Invalid magic number
+  0x0002 - Invalid message type
+  0x0003 - Payload too large
+  0x0004 - Malformed payload
+  0x0005 - Server error
+```
+
 ## Tasks
 
 ### Part 1: Message Builder
@@ -140,6 +156,25 @@ function parseGetMessage(payload) {
   // Extract key
   // Return { key }
 }
+
+function parseResponseMessage(payload) {
+  // Read status byte
+  // Extract data (rest of payload)
+  // Return { status, data }
+}
+
+function parseErrorMessage(payload) {
+  // Read error code (2 bytes, big-endian)
+  // Extract error message (rest of payload as string)
+  // Return { errorCode, errorMessage }
+}
+
+function buildErrorMessage(requestId, errorCode, errorMessage) {
+  // Create payload:
+  //   - Error code (2 bytes, big-endian)
+  //   - Error message (UTF-8 string)
+  // Return buildMessage(ERROR, requestId, payload)
+}
 ```
 
 ### Part 3: Protocol Server
@@ -169,6 +204,34 @@ class ProtocolServer {
     // Handle 'data' events
     // Parse complete messages
     // Route to appropriate handler
+    // Handle protocol errors (invalid magic, etc.)
+  }
+
+  handleMessage(socket, message) {
+    try {
+      // Validate message
+      if (message.magic !== MAGIC) {
+        // Send ERROR message with code 0x0001
+        this.sendError(
+          socket,
+          message.requestId,
+          0x0001,
+          "Invalid magic number"
+        );
+        return;
+      }
+
+      // Route to handler based on type
+      // If unknown type, send ERROR with code 0x0002
+    } catch (err) {
+      // Send ERROR message with code 0x0005
+      this.sendError(socket, message.requestId, 0x0005, err.message);
+    }
+  }
+
+  sendError(socket, requestId, errorCode, errorMessage) {
+    // Build ERROR message
+    // Send to client
   }
 
   handleGet(socket, requestId, key) {
@@ -236,10 +299,12 @@ class ProtocolClient {
 }
 ```
 
-### Part 5: Message Framing
+### Part 5: Message Framing (Optional)
+
+> **Note**: This is an **optional** refactoring. You can handle message framing inline in `handleConnection()` (as shown in Part 3), or extract it into this reusable class for better separation of concerns.
 
 ```javascript
-// TODO: Handle message framing
+// TODO: Handle message framing (optional pattern)
 
 class MessageFramer {
   constructor() {
@@ -248,23 +313,70 @@ class MessageFramer {
 
   addData(chunk) {
     // Append chunk to buffer
-    // Return array of complete messages
+    this.buffer = Buffer.concat([this.buffer, chunk]);
+    // Extract and return array of complete messages
+    return this.extractMessages();
   }
 
   extractMessages() {
     const messages = [];
 
-    while (this.buffer.length >= 6) {
+    while (this.buffer.length >= 11) {  // Minimum header size
       // Read magic number
+      const magic = this.buffer.readUInt16BE(0);
+
       // Validate magic
+      if (magic !== MAGIC) {
+        throw new Error('Invalid magic number');
+      }
+
       // Read length
+      const length = this.buffer.readUInt32BE(2);
+
       // Check if complete message available
-      // If yes: extract and add to messages
-      // If no: break
+      if (this.buffer.length < length) {
+        // Incomplete message, wait for more data
+        break;
+      }
+
+      // Extract complete message
+      const message = this.buffer.subarray(0, length);
+      messages.push(message);
+
+      // Remove from buffer
+      this.buffer = this.buffer.subarray(length);
     }
 
     return messages;
   }
+}
+
+// Usage in Server:
+handleConnection(socket) {
+  const framer = new MessageFramer();
+
+  socket.on('data', (data) => {
+    const messages = framer.addData(data);
+
+    messages.forEach(msgBuffer => {
+      const message = parseMessage(msgBuffer);
+      // Route to handlers...
+    });
+  });
+}
+
+// Usage in Client:
+connect() {
+  const framer = new MessageFramer();
+
+  this.socket.on('data', (data) => {
+    const messages = framer.addData(data);
+
+    messages.forEach(msgBuffer => {
+      const message = parseMessage(msgBuffer);
+      // Resolve pending requests...
+    });
+  });
 }
 ```
 
@@ -319,6 +431,9 @@ Client connected: 127.0.0.1:54321
 
   ← GET (ID: 4): nonexistent
   → RESPONSE (ID: 4): Not Found
+
+  ← [corrupted message with wrong magic]
+  → ERROR (ID: 0): Invalid magic number (0x0001)
 
 Client disconnected
 ```
@@ -422,6 +537,37 @@ async function benchmark() {
 5. Handle socket errors and disconnections
 6. Use promises for async request/response
 7. Keep request ID unique per client
+8. **Message Framing**: You can handle buffering inline OR use a MessageFramer class - both approaches work fine!
+
+## Two Approaches to Message Framing
+
+### Approach 1: Inline (Simpler)
+
+```javascript
+socket.on("data", (data) => {
+  buffer = Buffer.concat([buffer, data]);
+  while (buffer.length >= 11) {
+    // Extract and process messages...
+  }
+});
+```
+
+✅ Simpler, fewer abstractions  
+✅ Good for single-use cases
+
+### Approach 2: MessageFramer Class (More organized)
+
+```javascript
+const framer = new MessageFramer();
+socket.on('data', (data) => {
+  const messages = framer.addData(data);
+  messages.forEach(msg => /* process */);
+});
+```
+
+✅ Separation of concerns  
+✅ Reusable across client/server  
+✅ Easier to test independently
 
 ## Common Mistakes
 
