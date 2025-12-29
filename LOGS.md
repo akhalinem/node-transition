@@ -74,9 +74,11 @@ Key learning: Daemons are background processes that run continuously
 **18:13** - All good now
 **18:30** - with that, the event-loop module is done
 **18:34** - starting the 02-v8-engine module
+
 ### Tuesday, November 11
 
 **00:43** - finished v8-engine
+
 ### Thursday, November 13
 
 **01:02** - read some more external sources on v8
@@ -90,12 +92,14 @@ Key learning: Daemons are background processes that run continuously
 **01:50** - doing the thread pool exercise now
 **01:56** - skimmed, skipping it
 **02:06** - wrapping up the 01-runtime-architechure module
+
 ### Sunday, November 16
 
 **00:00** - generated materials for 02-module-system
 **00:00** - finished 01-commonjs-basics
 **00:05** - finished 02-esm-basics
 **00:05** - commonjs module system seems better for server-side code
+
 ### Monday, November 17
 
 **00:34** - finished module caching
@@ -106,18 +110,29 @@ Key learning: Daemons are background processes that run continuously
 **11:03** - started exercises
 **11:16** - skimmed/skipped cjs-to-esm exercise
 **11:40** - finished circular deps exercise
+
 ### Tuesday, November 18
 
 **00:51** - skipped the last exercise, exercise-3-dual-package. It was much informative to me.
 **00:52** - wrapping up the module system
 **00:52** - starting 03-streams
+
 ### Thursday, November 20
 
 **00:11** - got to know what backpressure is
+
 ### Thursday, November 27
 
 **00:17** - just finished 04-piping-streams, looks interesting
+
 ### Friday, November 28
 
 **03:38** - finished examples for streams
 **03:38** - starting exercises now
+
+## December 2025
+
+### Monday, December 29
+
+**12:06** - Finished error-handling module
+**12:07** - starting process-globals module
