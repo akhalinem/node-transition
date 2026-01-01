@@ -145,3 +145,7 @@ Key learning: Daemons are background processes that run continuously
 **00:32** - exercise-2-graceful-shutdown is interesting to me
 **01:01** - I'll come back to these later in the future
 **01:01** - skipping to 07-async-patterns module
+**01:30** - async-patterns module looked interesting, but still decided to skim
+**01:31** - mini-projects look duplicate to me, I've already done them in each module exercises section, so skipping it as well
+**01:32** - I can come back to these mini-projects later if I feel stuck and see a need for review
+**01:32** - jumping on the first project - 01-project-url-shortener
