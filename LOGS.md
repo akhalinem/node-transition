@@ -136,3 +136,12 @@ Key learning: Daemons are background processes that run continuously
 
 **12:06** - Finished error-handling module
 **12:07** - starting process-globals module
+
+## January 2026
+
+### Friday, January 2
+
+**00:31** - skipping exercise-1-environment
+**00:32** - exercise-2-graceful-shutdown is interesting to me
+**01:01** - I'll come back to these later in the future
+**01:01** - skipping to 07-async-patterns module
