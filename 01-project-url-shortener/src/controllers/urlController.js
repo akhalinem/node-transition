@@ -1,4 +1,6 @@
 const urlService = require("../services/urlService");
+const analyticsService = require("../services/analyticsService");
+const cacheService = require("../services/cacheService");
 
 /**
  * URL Controller
@@ -61,8 +63,8 @@ class UrlController {
     try {
       const { shortCode } = req.params;
 
-      // Get URL from database
-      const urlObject = await urlService.getByShortCode(shortCode);
+      // Get URL from cache (or database if cache miss)
+      const urlObject = await cacheService.getUrl(shortCode);
 
       if (!urlObject) {
         return res.status(404).json({
@@ -79,9 +81,9 @@ class UrlController {
         });
       }
 
-      // Increment click count (async, don't wait)
-      urlService.incrementClickCount(shortCode).catch((err) => {
-        console.error("Error updating click count:", err);
+      // Track click in Redis (super fast, non-blocking)
+      analyticsService.trackClick(shortCode).catch((err) => {
+        console.error("Error tracking click:", err);
       });
 
       // Redirect

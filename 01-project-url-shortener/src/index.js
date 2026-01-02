@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const apiRoutes = require("./routes/api");
 const redirectRoutes = require("./routes/redirect");
+const analyticsService = require("./services/analyticsService");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -50,6 +51,9 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
   console.log(`📊 Health check: http://localhost:${PORT}/health`);
+
+  // Start periodic analytics flush (every 10 seconds)
+  analyticsService.startPeriodicFlush(10000);
 });
 
 // Graceful shutdown
