@@ -15,14 +15,16 @@ Build a production-ready URL shortening service that handles 1,000 requests/seco
 ## 📋 Core Requirements
 
 ### Functional Requirements
-- [ ] Create short URLs from long URLs
-- [ ] Redirect short URLs to original URLs (must be <50ms)
-- [ ] Track click analytics (views per link, last accessed)
-- [ ] Custom aliases (user can choose their short code)
+
+- [x] Create short URLs from long URLs
+- [x] Redirect short URLs to original URLs (must be <50ms)
+- [x] Track click analytics (views per link, last accessed)
+- [x] Custom aliases (user can choose their short code)
 - [ ] Link expiration
 - [ ] Rate limiting (100 requests per IP per minute)
 
 ### Non-Functional Requirements
+
 - [ ] Handle 1,000 requests/second
 - [ ] Response time <50ms consistently
 - [ ] Proper error handling
@@ -46,6 +48,7 @@ Build a production-ready URL shortening service that handles 1,000 requests/seco
 ## 🛠️ Technology Stack
 
 **Recommended**:
+
 - **Runtime**: Node.js 18+
 - **Framework**: Express or Fastify
 - **Database**: PostgreSQL
@@ -54,7 +57,7 @@ Build a production-ready URL shortening service that handles 1,000 requests/seco
 - **Load Testing**: k6 or Artillery
 - **API Docs**: Swagger/OpenAPI (optional but recommended)
 
-*You can swap technologies, but document why!*
+_You can swap technologies, but document why!_
 
 ---
 
@@ -63,6 +66,7 @@ Build a production-ready URL shortening service that handles 1,000 requests/seco
 ### Week 1: Build (Get It Working)
 
 **Days 1-2: Setup & Core Logic**
+
 - [ ] Project initialization (package.json, folder structure)
 - [ ] Database setup (PostgreSQL)
 - [ ] Schema design (URLs table)
@@ -70,6 +74,7 @@ Build a production-ready URL shortening service that handles 1,000 requests/seco
 - [ ] Short code generation algorithm
 
 **Days 3-4: Features**
+
 - [ ] Redirect functionality
 - [ ] Click tracking
 - [ ] Custom aliases
@@ -77,6 +82,7 @@ Build a production-ready URL shortening service that handles 1,000 requests/seco
 - [ ] Input validation
 
 **Days 5-7: Testing & Documentation**
+
 - [ ] Basic tests
 - [ ] Error handling
 - [ ] API documentation
@@ -85,24 +91,28 @@ Build a production-ready URL shortening service that handles 1,000 requests/seco
 ### Week 2: Break & Optimize (Make It Production-Ready)
 
 **Days 8-9: Load Testing**
+
 - [ ] Set up k6/Artillery
 - [ ] Run load tests
 - [ ] Identify bottlenecks
 - [ ] Document performance issues
 
 **Days 10-11: Optimization**
+
 - [ ] Database query optimization (add indexes)
 - [ ] Implement Redis caching
 - [ ] Connection pooling
 - [ ] Query optimization (EXPLAIN ANALYZE)
 
 **Days 12-13: Hardening**
+
 - [ ] Rate limiting implementation
 - [ ] Comprehensive error handling
 - [ ] Input sanitization
 - [ ] Edge case handling
 
 **Day 14: Polish**
+
 - [ ] Code review and refactoring
 - [ ] Complete documentation
 - [ ] Final load test
@@ -113,18 +123,20 @@ Build a production-ready URL shortening service that handles 1,000 requests/seco
 ## 📖 Theory Checkpoints
 
 **Before you start coding, study**: (See `THEORY_CHECKPOINTS.md`)
+
 - HTTP/1.1 protocol basics
 - RESTful API design principles
 - Basic SQL and database concepts
 
 **While building, pause and study when you encounter**:
+
 - Database schema design → Study indexing strategies
 - Slow queries → Study query performance
 - Need for speed → Study caching strategies
 - Too many requests → Study rate limiting
 - API structure → Study API design patterns
 
-*Detailed theory materials are in the `theory/` folder with study guides.*
+_Detailed theory materials are in the `theory/` folder with study guides._
 
 ---
 
@@ -180,6 +192,7 @@ Build a production-ready URL shortening service that handles 1,000 requests/seco
 ## 🚀 Getting Started
 
 ### 1. Prerequisites
+
 ```bash
 # Check versions
 node --version  # v18+
@@ -189,6 +202,7 @@ redis-cli --version
 ```
 
 ### 2. Initial Setup
+
 ```bash
 cd src/
 npm init -y
@@ -197,12 +211,14 @@ npm install -D jest supertest nodemon
 ```
 
 ### 3. Database Setup
+
 ```sql
 CREATE DATABASE url_shortener;
 -- Design your schema!
 ```
 
 ### 4. Start Building
+
 - Design your database schema first
 - Sketch your API routes
 - Then start coding!
@@ -212,7 +228,9 @@ CREATE DATABASE url_shortener;
 ## 🎨 Design Decisions to Make
 
 ### 1. Short Code Generation
+
 **Options**:
+
 - Random string (check collisions)
 - Base62 encoding of auto-increment ID
 - Hash-based (MD5/SHA + truncate)
@@ -220,48 +238,57 @@ CREATE DATABASE url_shortener;
 **Consider**: Collision probability, predictability, length
 
 ### 2. Database Schema
+
 **Think about**:
+
 - What fields do you need?
 - What should be indexed?
 - How to track analytics efficiently?
 - Soft delete vs hard delete?
 
 ### 3. Caching Strategy
+
 **Decide**:
+
 - What to cache? (hot URLs)
 - Cache invalidation strategy
 - TTL values
 - Cache-aside vs write-through
 
 ### 4. Rate Limiting
+
 **Choose**:
+
 - Token bucket vs sliding window
 - Storage (memory vs Redis)
 - Per-IP vs per-user
 - Limits and timeframes
 
-*Document your decisions and why!*
+_Document your decisions and why!_
 
 ---
 
 ## 🧪 Testing Strategy
 
 ### Unit Tests
+
 - URL validation
 - Short code generation
 - Analytics calculation
 
 ### Integration Tests
+
 - API endpoints
 - Database operations
 - Cache operations
 
 ### Load Tests
+
 ```javascript
 // k6 example
-import http from 'k6/http';
-export default function() {
-  http.get('http://localhost:3000/abc123');
+import http from "k6/http";
+export default function () {
+  http.get("http://localhost:3000/abc123");
 }
 ```
 
@@ -272,6 +299,7 @@ export default function() {
 ## 📊 Monitoring & Metrics
 
 Track these metrics:
+
 - Request rate (req/sec)
 - Response time (p50, p95, p99)
 - Error rate
@@ -279,13 +307,14 @@ Track these metrics:
 - Database query time
 - Most popular URLs
 
-*Set up basic logging and consider Prometheus + Grafana*
+_Set up basic logging and consider Prometheus + Grafana_
 
 ---
 
 ## 🔍 Code Review Checklist
 
 Before considering the project done:
+
 - [ ] Code is clean and readable
 - [ ] No duplicated logic
 - [ ] Error handling is comprehensive
@@ -301,6 +330,7 @@ Before considering the project done:
 ## 📚 Learning Outcomes
 
 After completing this project, you'll understand:
+
 - ✅ HTTP protocol and RESTful API design
 - ✅ Database schema design and optimization
 - ✅ Query performance and indexing
@@ -315,6 +345,7 @@ After completing this project, you'll understand:
 ## 🎯 Stretch Goals (Optional)
 
 If you finish early or want to go deeper:
+
 - [ ] User accounts and authentication
 - [ ] Analytics dashboard (views over time)
 - [ ] QR code generation for URLs
@@ -331,19 +362,21 @@ If you finish early or want to go deeper:
 After building, study 3 URL shortener implementations on GitHub:
 
 **Document**:
+
 1. How did they handle short code generation?
 2. What database schema did they choose?
 3. How do they handle collisions?
 4. What's different from your approach and why?
 5. What would you borrow from their implementation?
 
-*Add your findings to `comparison-study/analysis.md`*
+_Add your findings to `comparison-study/analysis.md`_
 
 ---
 
 ## 💡 Common Pitfalls & Tips
 
 ### Pitfalls to Avoid
+
 - ❌ Not indexing database properly
 - ❌ Caching everything (cache wisely!)
 - ❌ Ignoring collision handling
@@ -351,6 +384,7 @@ After building, study 3 URL shortener implementations on GitHub:
 - ❌ Not testing with realistic data volumes
 
 ### Pro Tips
+
 - ✅ Start simple, optimize based on profiling
 - ✅ Use EXPLAIN ANALYZE on every query
 - ✅ Test with realistic URLs (various lengths)
@@ -362,6 +396,7 @@ After building, study 3 URL shortener implementations on GitHub:
 ## 📝 Retrospective
 
 At the end of Week 2, complete `RETROSPECTIVE_TEMPLATE.md`:
+
 1. What patterns did I learn this week?
 2. What concepts do I still not fully understand?
 3. What would I do differently if I started over?
@@ -373,12 +408,14 @@ At the end of Week 2, complete `RETROSPECTIVE_TEMPLATE.md`:
 ## 🆘 Need Help?
 
 ### Stuck on Implementation?
+
 1. Review the theory checkpoints
 2. Check `00-fundamentals/` for core concepts
 3. Read official documentation
 4. Search for the specific error/problem
 
 ### Performance Issues?
+
 1. Profile with Node.js --inspect
 2. Check database query plans (EXPLAIN)
 3. Monitor cache hit rates
@@ -389,6 +426,7 @@ At the end of Week 2, complete `RETROSPECTIVE_TEMPLATE.md`:
 ## ✅ Project Completion Checklist
 
 Mark done when:
+
 - [ ] All requirements implemented
 - [ ] Success criteria met
 - [ ] Tests passing
@@ -404,8 +442,8 @@ Mark done when:
 
 **Next Project**: `02-project-chat-platform/` (Real-time WebSockets)
 
-*Estimated Time: 40-50 hours over 2 weeks*
+_Estimated Time: 40-50 hours over 2 weeks_
 
 ---
 
-*Last Updated: November 2025*
+_Last Updated: November 2025_
