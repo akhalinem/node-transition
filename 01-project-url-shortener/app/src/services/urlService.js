@@ -4,6 +4,11 @@ const {
   isValidShortCode,
 } = require("../utils/shortCodeGenerator");
 const { isValidUrl, normalizeUrl } = require("../utils/urlValidator");
+const {
+  BadRequestError,
+  ConflictError,
+  InternalServerError,
+} = require("../utils/errors");
 
 /**
  * URL Service
@@ -23,7 +28,7 @@ class UrlService {
     const normalizedUrl = normalizeUrl(originalUrl);
 
     if (!isValidUrl(normalizedUrl)) {
-      throw new Error("Invalid URL format");
+      throw new BadRequestError("Invalid URL format");
     }
 
     let shortCode;
@@ -31,13 +36,13 @@ class UrlService {
     // If custom alias provided
     if (customAlias) {
       if (!isValidShortCode(customAlias)) {
-        throw new Error("Invalid custom alias format");
+        throw new BadRequestError("Invalid custom alias format");
       }
 
       // Check if alias already exists
       const existing = await this.getByShortCode(customAlias);
       if (existing) {
-        throw new Error("Custom alias already in use");
+        throw new ConflictError("Custom alias already in use");
       }
 
       shortCode = customAlias;
@@ -71,7 +76,7 @@ class UrlService {
       }
     }
 
-    throw new Error("Failed to generate unique short code");
+    throw new InternalServerError("Failed to generate unique short code");
   }
 
   /**

@@ -3,6 +3,11 @@ const express = require("express");
 const apiRoutes = require("./routes/api");
 const redirectRoutes = require("./routes/redirect");
 const analyticsService = require("./services/analyticsService");
+const {
+  errorLogger,
+  errorResponder,
+  notFoundHandler,
+} = require("./middleware/errorHandler");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -50,22 +55,10 @@ app.get("/health", async (req, res) => {
 app.use("/api", apiRoutes);
 app.use("/", redirectRoutes); // This catches ALL remaining GET requests
 
-// 404 handler
-app.use((req, res) => {
-  res.status(404).json({
-    success: false,
-    error: "Endpoint not found",
-  });
-});
-
-// Error handler
-app.use((err, req, res, next) => {
-  console.error("Unhandled error:", err);
-  res.status(500).json({
-    success: false,
-    error: "Internal server error",
-  });
-});
+// Error handling middleware (must be last)
+app.use(notFoundHandler);
+app.use(errorLogger);
+app.use(errorResponder);
 
 // Start server only if not in test mode
 if (process.env.NODE_ENV !== "test") {

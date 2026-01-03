@@ -11,6 +11,13 @@ const {
   validateShortCode,
   validateRequestSize,
 } = require("../utils/inputValidator");
+const {
+  BadRequestError,
+  NotFoundError,
+  GoneError,
+  PayloadTooLargeError,
+  ConflictError,
+} = require("../utils/errors");
 
 /**
  * URL Controller
@@ -22,50 +29,35 @@ class UrlController {
    * POST /api/shorten
    * Create a shortened URL
    */
-  async shortenUrl(req, res) {
+  async shortenUrl(req, res, next) {
     try {
       const { url, customAlias, expiresAt, expiresIn } = req.body;
 
       // Validate request size
       const sizeValidation = validateRequestSize(req.body);
       if (!sizeValidation.valid) {
-        return res.status(413).json({
-          success: false,
-          error: sizeValidation.error,
-        });
+        throw new PayloadTooLargeError(sizeValidation.error);
       }
 
       // Validate URL
       const urlValidation = validateUrl(url);
       if (!urlValidation.valid) {
-        return res.status(400).json({
-          success: false,
-          error: urlValidation.error,
-        });
+        throw new BadRequestError(urlValidation.error);
       }
 
       // Validate custom alias (if provided)
       const aliasValidation = validateCustomAlias(customAlias);
       if (!aliasValidation.valid) {
-        return res.status(400).json({
-          success: false,
-          error: aliasValidation.error,
-        });
+        throw new BadRequestError(aliasValidation.error);
       }
 
       // Validate expiration (if provided)
       if (expiresAt && !isValidExpiresAt(expiresAt)) {
-        return res.status(400).json({
-          success: false,
-          error: "Invalid expiration date format",
-        });
+        throw new BadRequestError("Invalid expiration date format");
       }
 
       if (expiresIn && !isValidExpiresIn(expiresIn)) {
-        return res.status(400).json({
-          success: false,
-          error: "Invalid expiration duration",
-        });
+        throw new BadRequestError("Invalid expiration duration");
       }
 
       let expiration = null;
@@ -99,12 +91,7 @@ class UrlController {
         },
       });
     } catch (err) {
-      console.error("Error shortening URL:", err);
-
-      return res.status(400).json({
-        success: false,
-        error: err.message,
-      });
+      next(err);
     }
   }
 
@@ -112,35 +99,26 @@ class UrlController {
    * GET /:shortCode
    * Redirect to original URL
    */
-  async redirectUrl(req, res) {
+  async redirectUrl(req, res, next) {
     try {
       const { shortCode } = req.params;
 
       // Validate short code format
       const codeValidation = validateShortCode(shortCode);
       if (!codeValidation.valid) {
-        return res.status(400).json({
-          success: false,
-          error: codeValidation.error,
-        });
+        throw new BadRequestError(codeValidation.error);
       }
 
       // Get URL from cache (or database if cache miss)
       const urlObject = await cacheService.getUrl(codeValidation.shortCode);
 
       if (!urlObject) {
-        return res.status(404).json({
-          success: false,
-          error: "Short URL not found",
-        });
+        throw new NotFoundError("Short URL not found");
       }
 
       // Check if expired
       if (urlService.isExpired(urlObject)) {
-        return res.status(410).json({
-          success: false,
-          error: "This short URL has expired",
-        });
+        throw new GoneError("This short URL has expired");
       }
 
       // Track click in Redis (super fast, non-blocking)
@@ -151,12 +129,7 @@ class UrlController {
       // Redirect
       return res.redirect(301, urlObject.original_url);
     } catch (err) {
-      console.error("Error redirecting:", err);
-
-      return res.status(500).json({
-        success: false,
-        error: "Internal server error",
-      });
+      next(err);
     }
   }
 
@@ -164,17 +137,14 @@ class UrlController {
    * GET /api/stats/:shortCode
    * Get analytics for a short URL
    */
-  async getStats(req, res) {
+  async getStats(req, res, next) {
     try {
       const { shortCode } = req.params;
 
       // Validate short code format
       const codeValidation = validateShortCode(shortCode);
       if (!codeValidation.valid) {
-        return res.status(400).json({
-          success: false,
-          error: codeValidation.error,
-        });
+        throw new BadRequestError(codeValidation.error);
       }
 
       const urlObject = await urlService.getByShortCode(
@@ -182,10 +152,7 @@ class UrlController {
       );
 
       if (!urlObject) {
-        return res.status(404).json({
-          success: false,
-          error: "Short URL not found",
-        });
+        throw new NotFoundError("Short URL not found");
       }
 
       return res.json({
@@ -201,12 +168,7 @@ class UrlController {
         },
       });
     } catch (err) {
-      console.error("Error getting stats:", err);
-
-      return res.status(500).json({
-        success: false,
-        error: "Internal server error",
-      });
+      next(err);
     }
   }
 }

@@ -179,7 +179,7 @@ describe("API Integration Tests", () => {
           url: "https://example.com/second",
           customAlias: alias,
         })
-        .expect(400);
+        .expect(409); // Conflict status code
 
       expect(response.body.error).toContain("already in use");
     });

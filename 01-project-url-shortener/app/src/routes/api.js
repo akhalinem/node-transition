@@ -7,9 +7,13 @@ const urlController = require("../controllers/urlController");
  */
 
 // POST /api/shorten - Create shortened URL
-router.post("/shorten", (req, res) => urlController.shortenUrl(req, res));
+router.post("/shorten", (req, res, next) =>
+  urlController.shortenUrl(req, res, next)
+);
 
 // GET /api/stats/:shortCode - Get URL statistics
-router.get("/stats/:shortCode", (req, res) => urlController.getStats(req, res));
+router.get("/stats/:shortCode", (req, res, next) =>
+  urlController.getStats(req, res, next)
+);
 
 module.exports = router;

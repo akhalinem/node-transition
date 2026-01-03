@@ -7,6 +7,8 @@ const urlController = require("../controllers/urlController");
  */
 
 // GET /:shortCode - Redirect to original URL
-router.get("/:shortCode", (req, res) => urlController.redirectUrl(req, res));
+router.get("/:shortCode", (req, res, next) =>
+  urlController.redirectUrl(req, res, next)
+);
 
 module.exports = router;

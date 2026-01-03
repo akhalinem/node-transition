@@ -27,7 +27,7 @@ Build a production-ready URL shortening service that handles 1,000 requests/seco
 
 - [ ] Handle 1,000 requests/second
 - [ ] Response time <50ms consistently
-- [ ] Proper error handling
+- [x] Proper error handling
 - [ ] API documentation
 - [ ] Basic monitoring
 
@@ -37,11 +37,11 @@ Build a production-ready URL shortening service that handles 1,000 requests/seco
 
 - [ ] Load test shows consistent <50ms response time at 1000 req/sec
 - [ ] Database queries are optimized (show EXPLAIN plans)
-- [ ] Proper error handling (invalid URLs, collisions, etc.)
+- [x] Proper error handling (invalid URLs, collisions, etc.)
 - [ ] API documentation with examples
 - [ ] Basic monitoring (track response times, error rates)
 - [ ] Code is clean and well-structured
-- [ ] Tests cover critical paths
+- [x] Tests cover critical paths
 
 ---
 
@@ -84,7 +84,7 @@ _You can swap technologies, but document why!_
 **Days 5-7: Testing & Documentation**
 
 - [x] Basic tests
-- [ ] Error handling
+- [x] Error handling
 - [ ] API documentation
 - [ ] README with setup instructions
 
@@ -107,9 +107,9 @@ _You can swap technologies, but document why!_
 **Days 12-13: Hardening**
 
 - [ ] Rate limiting implementation
-- [ ] Comprehensive error handling
-- [ ] Input sanitization
-- [ ] Edge case handling
+- [x] Comprehensive error handling
+- [x] Input sanitization
+- [x] Edge case handling
 
 **Day 14: Polish**
 
@@ -317,12 +317,12 @@ Before considering the project done:
 
 - [ ] Code is clean and readable
 - [ ] No duplicated logic
-- [ ] Error handling is comprehensive
-- [ ] All edge cases are handled
-- [ ] Tests are passing
+- [x] Error handling is comprehensive
+- [x] All edge cases are handled
+- [x] Tests are passing
 - [ ] Documentation is complete
 - [ ] Performance targets are met
-- [ ] Security basics covered (input validation, no SQL injection)
+- [x] Security basics covered (input validation, no SQL injection)
 - [ ] Can explain all design decisions
 
 ---
