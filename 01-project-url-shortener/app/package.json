@@ -10,9 +10,12 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "db:setup": "psql -d url_shortener -f src/database/schema.sql",
-    "load:simple": "k6 run tests/load/simple-test.js",
-    "load:realistic": "k6 run tests/load/redirect-test.js",
-    "load:stress": "k6 run tests/load/stress-test.js"
+    "load:smoke": "k6 run tests/load/smoke.js",
+    "load:baseline": "k6 run tests/load/baseline.js",
+    "load:stress": "k6 run tests/load/stress.js",
+    "load:spike": "k6 run tests/load/spike.js",
+    "load:mixed": "k6 run tests/load/mixed.js",
+    "load:write-heavy": "k6 run tests/load/write-heavy.js"
   },
   "keywords": [],
   "author": "",

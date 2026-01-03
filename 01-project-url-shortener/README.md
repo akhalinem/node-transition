@@ -92,7 +92,7 @@ _You can swap technologies, but document why!_
 
 **Days 8-9: Load Testing**
 
-- [ ] Set up k6/Artillery
+- [x] Set up k6/Artillery
 - [ ] Run load tests
 - [ ] Identify bottlenecks
 - [ ] Document performance issues
