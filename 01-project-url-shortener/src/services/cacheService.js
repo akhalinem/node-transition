@@ -23,8 +23,19 @@ class CacheService {
       const cached = await redisClient.get(cacheKey);
 
       if (cached) {
+        const urlObject = JSON.parse(cached);
+
+        if (
+          urlObject.expires_at &&
+          new Date(urlObject.expires_at) < new Date()
+        ) {
+          await this.invalidate(shortCode);
+          // Cached URL is expired
+          return null;
+        }
+
         // Cache HIT! 🎯
-        return JSON.parse(cached);
+        return urlObject;
       }
 
       // Cache MISS - query database
@@ -43,7 +54,7 @@ class CacheService {
       // Store in cache for future requests
       await redisClient.setEx(
         cacheKey,
-        this.defaultTTL,
+        this.calculateTtl(urlObject),
         JSON.stringify(urlObject)
       );
 
@@ -80,7 +91,7 @@ class CacheService {
     try {
       await redisClient.setEx(
         `url:${shortCode}`,
-        this.defaultTTL,
+        this.calculateTtl(urlObject),
         JSON.stringify(urlObject)
       );
     } catch (err) {
@@ -125,6 +136,18 @@ class CacheService {
       console.error("Error getting cache stats:", err);
       return {};
     }
+  }
+
+  calculateTtl(urlObject) {
+    const { expires_at } = urlObject;
+
+    if (expires_at) {
+      const now = new Date();
+      const calculatedTtl = Math.floor((new Date(expires_at) - now) / 1000);
+      return Math.min(calculatedTtl, this.defaultTTL);
+    }
+
+    return this.defaultTTL;
   }
 }
 

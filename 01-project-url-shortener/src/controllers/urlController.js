@@ -56,6 +56,8 @@ class UrlController {
         expirationDate
       );
 
+      await cacheService.set(result.short_code, result);
+
       // Build response
       const baseUrl = process.env.BASE_URL || "http://localhost:3000";
       const shortUrl = `${baseUrl}/${result.short_code}`;
