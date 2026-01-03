@@ -5,6 +5,12 @@ const {
   isValidExpiresAt,
   isValidExpiresIn,
 } = require("../utils/expirationValidator");
+const {
+  validateUrl,
+  validateCustomAlias,
+  validateShortCode,
+  validateRequestSize,
+} = require("../utils/inputValidator");
 
 /**
  * URL Controller
@@ -20,14 +26,34 @@ class UrlController {
     try {
       const { url, customAlias, expiresAt, expiresIn } = req.body;
 
-      // Validate input
-      if (!url) {
-        return res.status(400).json({
+      // Validate request size
+      const sizeValidation = validateRequestSize(req.body);
+      if (!sizeValidation.valid) {
+        return res.status(413).json({
           success: false,
-          error: "URL is required",
+          error: sizeValidation.error,
         });
       }
 
+      // Validate URL
+      const urlValidation = validateUrl(url);
+      if (!urlValidation.valid) {
+        return res.status(400).json({
+          success: false,
+          error: urlValidation.error,
+        });
+      }
+
+      // Validate custom alias (if provided)
+      const aliasValidation = validateCustomAlias(customAlias);
+      if (!aliasValidation.valid) {
+        return res.status(400).json({
+          success: false,
+          error: aliasValidation.error,
+        });
+      }
+
+      // Validate expiration (if provided)
       if (expiresAt && !isValidExpiresAt(expiresAt)) {
         return res.status(400).json({
           success: false,
@@ -49,10 +75,10 @@ class UrlController {
         expiration = new Date(expiresAt).toISOString();
       }
 
-      // Create short URL
+      // Create short URL (use validated/sanitized values)
       const result = await urlService.createShortUrl(
-        url,
-        customAlias || null,
+        urlValidation.url,
+        aliasValidation.alias || null,
         expiration
       );
 
@@ -90,8 +116,17 @@ class UrlController {
     try {
       const { shortCode } = req.params;
 
+      // Validate short code format
+      const codeValidation = validateShortCode(shortCode);
+      if (!codeValidation.valid) {
+        return res.status(400).json({
+          success: false,
+          error: codeValidation.error,
+        });
+      }
+
       // Get URL from cache (or database if cache miss)
-      const urlObject = await cacheService.getUrl(shortCode);
+      const urlObject = await cacheService.getUrl(codeValidation.shortCode);
 
       if (!urlObject) {
         return res.status(404).json({
@@ -109,7 +144,7 @@ class UrlController {
       }
 
       // Track click in Redis (super fast, non-blocking)
-      analyticsService.trackClick(shortCode).catch((err) => {
+      analyticsService.trackClick(codeValidation.shortCode).catch((err) => {
         console.error("Error tracking click:", err);
       });
 
@@ -133,7 +168,18 @@ class UrlController {
     try {
       const { shortCode } = req.params;
 
-      const urlObject = await urlService.getByShortCode(shortCode);
+      // Validate short code format
+      const codeValidation = validateShortCode(shortCode);
+      if (!codeValidation.valid) {
+        return res.status(400).json({
+          success: false,
+          error: codeValidation.error,
+        });
+      }
+
+      const urlObject = await urlService.getByShortCode(
+        codeValidation.shortCode
+      );
 
       if (!urlObject) {
         return res.status(404).json({

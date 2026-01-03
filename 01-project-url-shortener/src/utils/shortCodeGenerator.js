@@ -30,12 +30,12 @@ function isValidShortCode(code) {
     return false;
   }
 
-  // Check length (3-10 characters)
+  // Check length (3-10 characters, matching database schema)
   if (code.length < 3 || code.length > 10) {
     return false;
   }
 
-  // Check if only contains Base62 characters
+  // Only allow Base62 characters (alphanumeric only, no special chars)
   const validCharsRegex = /^[0-9a-zA-Z]+$/;
   return validCharsRegex.test(code);
 }

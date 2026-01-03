@@ -79,7 +79,7 @@ _You can swap technologies, but document why!_
 - [x] Click tracking
 - [x] Custom aliases
 - [x] Link expiration
-- [ ] Input validation
+- [x] Input validation
 
 **Days 5-7: Testing & Documentation**
 
