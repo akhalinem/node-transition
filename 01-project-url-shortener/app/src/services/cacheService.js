@@ -1,5 +1,5 @@
-const redisClient = require("../config/redis");
-const { query } = require("../config/database");
+const redisClient = require("../../config/redis");
+const { query } = require("../../config/database");
 
 /**
  * URL Cache Service

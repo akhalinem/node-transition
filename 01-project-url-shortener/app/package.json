@@ -4,13 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
     "test": "jest",
-    "db:setup": "psql -d url_shortener -f database/schema.sql",
-    "load:simple": "k6 run ../tests/load/simple-test.js",
-    "load:realistic": "k6 run ../tests/load/redirect-test.js",
-    "load:stress": "k6 run ../tests/load/stress-test.js"
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "db:setup": "psql -d url_shortener -f src/database/schema.sql",
+    "load:simple": "k6 run tests/load/simple-test.js",
+    "load:realistic": "k6 run tests/load/redirect-test.js",
+    "load:stress": "k6 run tests/load/stress-test.js"
   },
   "keywords": [],
   "author": "",

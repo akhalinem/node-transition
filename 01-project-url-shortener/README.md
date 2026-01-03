@@ -83,7 +83,7 @@ _You can swap technologies, but document why!_
 
 **Days 5-7: Testing & Documentation**
 
-- [ ] Basic tests
+- [x] Basic tests
 - [ ] Error handling
 - [ ] API documentation
 - [ ] README with setup instructions
