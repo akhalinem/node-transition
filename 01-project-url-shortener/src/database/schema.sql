@@ -7,10 +7,10 @@ CREATE TABLE IF NOT EXISTS urls (
   short_code VARCHAR(10) UNIQUE NOT NULL,
   original_url TEXT NOT NULL,
   custom_alias BOOLEAN DEFAULT FALSE,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  expires_at TIMESTAMP,
+  created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+  expires_at TIMESTAMPTZ,
   click_count INTEGER DEFAULT 0,
-  last_accessed TIMESTAMP
+  last_accessed TIMESTAMPTZ
 );
 
 -- Create indexes for performance
