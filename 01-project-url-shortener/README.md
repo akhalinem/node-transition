@@ -25,8 +25,8 @@ Build a production-ready URL shortening service that handles 1,000 requests/seco
 
 ### Non-Functional Requirements
 
-- [ ] Handle 1,000 requests/second
-- [ ] Response time <50ms consistently
+- [x] Handle 1,000 requests/second
+- [x] Response time <50ms consistently
 - [x] Proper error handling
 - [ ] API documentation
 - [ ] Basic monitoring
@@ -35,7 +35,7 @@ Build a production-ready URL shortening service that handles 1,000 requests/seco
 
 ## ✅ Success Criteria
 
-- [ ] Load test shows consistent <50ms response time at 1000 req/sec
+- [x] Load test shows consistent <50ms response time at 1000 req/sec
 - [ ] Database queries are optimized (show EXPLAIN plans)
 - [x] Proper error handling (invalid URLs, collisions, etc.)
 - [ ] API documentation with examples
@@ -93,9 +93,9 @@ _You can swap technologies, but document why!_
 **Days 8-9: Load Testing**
 
 - [x] Set up k6/Artillery
-- [ ] Run load tests
-- [ ] Identify bottlenecks
-- [ ] Document performance issues
+- [x] Run load tests
+- [x] Identify bottlenecks
+- [x] Document performance issues
 
 **Days 10-11: Optimization**
 
@@ -321,7 +321,7 @@ Before considering the project done:
 - [x] All edge cases are handled
 - [x] Tests are passing
 - [ ] Documentation is complete
-- [ ] Performance targets are met
+- [x] Performance targets are met
 - [x] Security basics covered (input validation, no SQL injection)
 - [ ] Can explain all design decisions
 

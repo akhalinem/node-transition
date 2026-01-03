@@ -1,0 +1,542 @@
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+     execution: local
+        script: tests/load/spike.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 2000 max VUs, 1m40s max duration (incl. graceful stop):
+              * default: Up to 2000 looping VUs for 1m10s over 5 stages (gracefulRampDown: 30s, gracefulStop: 30s)
+
+
+running (0m00.9s), 0010/2000 VUs, 87 complete and 0 interrupted iterations
+default   [   1% ] 0010/2000 VUs  0m00.9s/1m10.0s
+
+running (0m01.9s), 0020/2000 VUs, 364 complete and 0 interrupted iterations
+default   [   3% ] 0020/2000 VUs  0m01.9s/1m10.0s
+
+running (0m02.9s), 0030/2000 VUs, 817 complete and 0 interrupted iterations
+default   [   4% ] 0030/2000 VUs  0m02.9s/1m10.0s
+
+running (0m03.9s), 0039/2000 VUs, 1469 complete and 0 interrupted iterations
+default   [   6% ] 0039/2000 VUs  0m03.9s/1m10.0s
+
+running (0m04.9s), 0049/2000 VUs, 2272 complete and 0 interrupted iterations
+default   [   7% ] 0049/2000 VUs  0m04.9s/1m10.0s
+
+running (0m05.9s), 0059/2000 VUs, 3252 complete and 0 interrupted iterations
+default   [   8% ] 0059/2000 VUs  0m05.9s/1m10.0s
+
+running (0m06.9s), 0069/2000 VUs, 4464 complete and 0 interrupted iterations
+default   [  10% ] 0069/2000 VUs  0m06.9s/1m10.0s
+
+running (0m07.9s), 0079/2000 VUs, 5865 complete and 0 interrupted iterations
+default   [  11% ] 0079/2000 VUs  0m07.9s/1m10.0s
+
+running (0m08.9s), 0089/2000 VUs, 7459 complete and 0 interrupted iterations
+default   [  13% ] 0089/2000 VUs  0m08.9s/1m10.0s
+
+running (0m09.9s), 0099/2000 VUs, 9241 complete and 0 interrupted iterations
+default   [  14% ] 0099/2000 VUs  0m09.9s/1m10.0s
+
+running (0m10.9s), 0276/2000 VUs, 12687 complete and 0 interrupted iterations
+default   [  16% ] 0276/2000 VUs  0m10.9s/1m10.0s
+
+running (0m11.9s), 0466/2000 VUs, 19938 complete and 0 interrupted iterations
+default   [  17% ] 0466/2000 VUs  0m11.9s/1m10.0s
+
+running (0m12.9s), 0656/2000 VUs, 30821 complete and 0 interrupted iterations
+default   [  18% ] 0656/2000 VUs  0m12.9s/1m10.0s
+
+running (0m13.9s), 0846/2000 VUs, 44358 complete and 0 interrupted iterations
+default   [  20% ] 0846/2000 VUs  0m13.9s/1m10.0s
+
+running (0m14.9s), 1036/2000 VUs, 60783 complete and 0 interrupted iterations
+default   [  21% ] 1036/2000 VUs  0m14.9s/1m10.0s
+
+running (0m15.9s), 1226/2000 VUs, 75531 complete and 0 interrupted iterations
+default   [  23% ] 1226/2000 VUs  0m15.9s/1m10.0s
+
+running (0m16.9s), 1416/2000 VUs, 90641 complete and 0 interrupted iterations
+default   [  24% ] 1416/2000 VUs  0m16.9s/1m10.0s
+
+running (0m17.9s), 1606/2000 VUs, 104933 complete and 0 interrupted iterations
+default   [  26% ] 1606/2000 VUs  0m17.9s/1m10.0s
+
+running (0m18.9s), 1796/2000 VUs, 119033 complete and 0 interrupted iterations
+default   [  27% ] 1796/2000 VUs  0m18.9s/1m10.0s
+
+running (0m19.9s), 1986/2000 VUs, 131810 complete and 0 interrupted iterations
+default   [  28% ] 1986/2000 VUs  0m19.9s/1m10.0s
+
+running (0m20.9s), 2000/2000 VUs, 145186 complete and 0 interrupted iterations
+default   [  30% ] 2000/2000 VUs  0m20.9s/1m10.0s
+
+running (0m21.9s), 2000/2000 VUs, 158414 complete and 0 interrupted iterations
+default   [  31% ] 2000/2000 VUs  0m21.9s/1m10.0s
+
+running (0m22.9s), 2000/2000 VUs, 171592 complete and 0 interrupted iterations
+default   [  33% ] 2000/2000 VUs  0m22.9s/1m10.0s
+
+running (0m23.9s), 2000/2000 VUs, 185145 complete and 0 interrupted iterations
+default   [  34% ] 2000/2000 VUs  0m23.9s/1m10.0s
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+
+running (0m24.9s), 2000/2000 VUs, 198368 complete and 0 interrupted iterations
+default   [  36% ] 2000/2000 VUs  0m24.9s/1m10.0s
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:01+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+
+running (0m25.9s), 2000/2000 VUs, 211851 complete and 0 interrupted iterations
+default   [  37% ] 2000/2000 VUs  0m25.9s/1m10.0s
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:02+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+
+running (0m26.9s), 2000/2000 VUs, 225834 complete and 0 interrupted iterations
+default   [  38% ] 2000/2000 VUs  0m26.9s/1m10.0s
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:03+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:04+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:04+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:04+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:04+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:04+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:04+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:04+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:04+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:04+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:04+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:04+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:04+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:04+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:04+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:04+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:04+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:04+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:04+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:04+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:04+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:04+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:04+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:04+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:04+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:04+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+
+running (0m27.9s), 2000/2000 VUs, 238875 complete and 0 interrupted iterations
+default   [  40% ] 2000/2000 VUs  0m27.9s/1m10.0s
+
+running (0m28.9s), 2000/2000 VUs, 253254 complete and 0 interrupted iterations
+default   [  41% ] 2000/2000 VUs  0m28.9s/1m10.0s
+
+running (0m29.9s), 2000/2000 VUs, 267714 complete and 0 interrupted iterations
+default   [  43% ] 2000/2000 VUs  0m29.9s/1m10.0s
+
+running (0m30.9s), 2000/2000 VUs, 281281 complete and 0 interrupted iterations
+default   [  44% ] 2000/2000 VUs  0m30.9s/1m10.0s
+
+running (0m31.9s), 2000/2000 VUs, 296071 complete and 0 interrupted iterations
+default   [  46% ] 2000/2000 VUs  0m31.9s/1m10.0s
+time="2026-01-04T03:33:09+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+
+running (0m32.9s), 2000/2000 VUs, 310158 complete and 0 interrupted iterations
+default   [  47% ] 2000/2000 VUs  0m32.9s/1m10.0s
+time="2026-01-04T03:33:09+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:09+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:09+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+time="2026-01-04T03:33:09+05:00" level=warning msg="Request Failed" error="Get \"http://localhost:3000/7y8xl0zg4o\": dial: i/o timeout"
+
+running (0m33.9s), 2000/2000 VUs, 324436 complete and 0 interrupted iterations
+default   [  48% ] 2000/2000 VUs  0m33.9s/1m10.0s
+
+running (0m34.9s), 2000/2000 VUs, 338922 complete and 0 interrupted iterations
+default   [  50% ] 2000/2000 VUs  0m34.9s/1m10.0s
+
+running (0m35.9s), 2000/2000 VUs, 353308 complete and 0 interrupted iterations
+default   [  51% ] 2000/2000 VUs  0m35.9s/1m10.0s
+
+running (0m36.9s), 2000/2000 VUs, 367620 complete and 0 interrupted iterations
+default   [  53% ] 2000/2000 VUs  0m36.9s/1m10.0s
+
+running (0m37.9s), 2000/2000 VUs, 381976 complete and 0 interrupted iterations
+default   [  54% ] 2000/2000 VUs  0m37.9s/1m10.0s
+
+running (0m38.9s), 2000/2000 VUs, 396484 complete and 0 interrupted iterations
+default   [  56% ] 2000/2000 VUs  0m38.9s/1m10.0s
+
+running (0m39.9s), 2000/2000 VUs, 411549 complete and 0 interrupted iterations
+default   [  57% ] 2000/2000 VUs  0m39.9s/1m10.0s
+
+running (0m40.9s), 2000/2000 VUs, 425754 complete and 0 interrupted iterations
+default   [  58% ] 2000/2000 VUs  0m40.9s/1m10.0s
+
+running (0m41.9s), 2000/2000 VUs, 440323 complete and 0 interrupted iterations
+default   [  60% ] 2000/2000 VUs  0m41.9s/1m10.0s
+
+running (0m42.9s), 2000/2000 VUs, 455413 complete and 0 interrupted iterations
+default   [  61% ] 2000/2000 VUs  0m42.9s/1m10.0s
+
+running (0m43.9s), 2000/2000 VUs, 469245 complete and 0 interrupted iterations
+default   [  63% ] 2000/2000 VUs  0m43.9s/1m10.0s
+
+running (0m44.9s), 2000/2000 VUs, 483746 complete and 0 interrupted iterations
+default   [  64% ] 2000/2000 VUs  0m44.9s/1m10.0s
+
+running (0m45.9s), 2000/2000 VUs, 498666 complete and 0 interrupted iterations
+default   [  66% ] 2000/2000 VUs  0m45.9s/1m10.0s
+
+running (0m46.9s), 2000/2000 VUs, 513361 complete and 0 interrupted iterations
+default   [  67% ] 2000/2000 VUs  0m46.9s/1m10.0s
+
+running (0m47.9s), 2000/2000 VUs, 528056 complete and 0 interrupted iterations
+default   [  68% ] 2000/2000 VUs  0m47.9s/1m10.0s
+
+running (0m48.9s), 2000/2000 VUs, 541913 complete and 0 interrupted iterations
+default   [  70% ] 2000/2000 VUs  0m48.9s/1m10.0s
+
+running (0m49.9s), 2000/2000 VUs, 556625 complete and 0 interrupted iterations
+default   [  71% ] 2000/2000 VUs  0m49.9s/1m10.0s
+
+running (0m50.9s), 1841/2000 VUs, 570528 complete and 0 interrupted iterations
+default   [  73% ] 1841/2000 VUs  0m50.9s/1m10.0s
+
+running (0m51.9s), 1645/2000 VUs, 584527 complete and 0 interrupted iterations
+default   [  74% ] 1645/2000 VUs  0m51.9s/1m10.0s
+
+running (0m52.9s), 1458/2000 VUs, 598066 complete and 0 interrupted iterations
+default   [  76% ] 1458/2000 VUs  0m52.9s/1m10.0s
+
+running (0m53.9s), 1265/2000 VUs, 611407 complete and 0 interrupted iterations
+default   [  77% ] 1265/2000 VUs  0m53.9s/1m10.0s
+
+running (0m54.9s), 1070/2000 VUs, 626287 complete and 0 interrupted iterations
+default   [  78% ] 1070/2000 VUs  0m54.9s/1m10.0s
+
+running (0m55.9s), 0877/2000 VUs, 641431 complete and 0 interrupted iterations
+default   [  80% ] 0877/2000 VUs  0m55.9s/1m10.0s
+
+running (0m56.9s), 0689/2000 VUs, 656388 complete and 0 interrupted iterations
+default   [  81% ] 0689/2000 VUs  0m56.9s/1m10.0s
+
+running (0m57.9s), 0499/2000 VUs, 668126 complete and 0 interrupted iterations
+default   [  83% ] 0499/2000 VUs  0m57.9s/1m10.0s
+
+running (0m58.9s), 0308/2000 VUs, 676157 complete and 0 interrupted iterations
+default   [  84% ] 0308/2000 VUs  0m58.9s/1m10.0s
+
+running (0m59.9s), 0122/2000 VUs, 680356 complete and 0 interrupted iterations
+default   [  86% ] 0122/2000 VUs  0m59.9s/1m10.0s
+
+running (1m00.9s), 0092/2000 VUs, 682259 complete and 0 interrupted iterations
+default   [  87% ] 0092/2000 VUs  1m00.9s/1m10.0s
+
+running (1m01.9s), 0081/2000 VUs, 683962 complete and 0 interrupted iterations
+default   [  88% ] 0081/2000 VUs  1m01.9s/1m10.0s
+
+running (1m02.9s), 0072/2000 VUs, 685420 complete and 0 interrupted iterations
+default   [  90% ] 0072/2000 VUs  1m02.9s/1m10.0s
+
+running (1m03.9s), 0062/2000 VUs, 686689 complete and 0 interrupted iterations
+default   [  91% ] 0062/2000 VUs  1m03.9s/1m10.0s
+
+running (1m04.9s), 0052/2000 VUs, 687791 complete and 0 interrupted iterations
+default   [  93% ] 0052/2000 VUs  1m04.9s/1m10.0s
+
+running (1m05.9s), 0041/2000 VUs, 688661 complete and 0 interrupted iterations
+default   [  94% ] 0041/2000 VUs  1m05.9s/1m10.0s
+
+running (1m06.9s), 0031/2000 VUs, 689355 complete and 0 interrupted iterations
+default   [  96% ] 0031/2000 VUs  1m06.9s/1m10.0s
+
+running (1m07.9s), 0021/2000 VUs, 689835 complete and 0 interrupted iterations
+default   [  97% ] 0021/2000 VUs  1m07.9s/1m10.0s
+
+running (1m08.9s), 0011/2000 VUs, 690152 complete and 0 interrupted iterations
+default   [  98% ] 0011/2000 VUs  1m08.9s/1m10.0s
+
+running (1m09.9s), 0001/2000 VUs, 690277 complete and 0 interrupted iterations
+default   [ 100% ] 0001/2000 VUs  1m09.9s/1m10.0s
+time="2026-01-04T03:33:46+05:00" level=info msg="Spike test stats: {\"success\":true,\"data\":{\"shortCode\":\"7y8xl0zg4o\",\"originalUrl\":\"https://example.com/viral-content\",\"clickCount\":678869,\"createdAt\":\"2026-01-03T22:32:36.628Z\",\"lastAccessed\":\"2026-01-03T22:33:38.124Z\",\"expiresAt\":null,\"isExpired\":false}}" source=console
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(95)<200' p(95)=105.89ms
+
+    http_req_failed
+    ✓ 'rate<0.05' rate=0.03%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 1380558 19714.182495/s
+    checks_succeeded...: 99.91%  1379420 out of 1380558
+    checks_failed......: 0.08%   1138 out of 1380558
+
+    ✗ status is 301
+      ↳  99% — ✓ 690005 / ✗ 274
+    ✗ response time < 200ms
+      ↳  99% — ✓ 689415 / ✗ 864
+
+    HTTP
+    http_req_duration..............: avg=63.86ms  min=0s      med=70.72ms  max=3.58s p(90)=98.07ms  p(95)=105.89ms
+      { expected_response:true }...: avg=63.88ms  min=77µs    med=70.73ms  max=3.58s p(90)=98.08ms  p(95)=105.89ms
+    http_req_failed................: 0.03%  274 out of 690281
+    http_reqs......................: 690281 9857.119807/s
+
+    EXECUTION
+    iteration_duration.............: avg=118.91ms min=50.11ms med=120.97ms max=9.46s p(90)=148.43ms p(95)=156.14ms
+    iterations.....................: 690279 9857.091248/s
+    vus............................: 1      min=1             max=2000
+    vus_max........................: 2000   min=2000          max=2000
+
+    NETWORK
+    data_received..................: 226 MB 3.2 MB/s
+    data_sent......................: 55 MB  788 kB/s
+
+
+
+
+running (1m10.0s), 0000/2000 VUs, 690279 complete and 0 interrupted iterations
+default ✓ [ 100% ] 0000/2000 VUs  1m10s
