@@ -67,17 +67,17 @@ _You can swap technologies, but document why!_
 
 **Days 1-2: Setup & Core Logic**
 
-- [ ] Project initialization (package.json, folder structure)
-- [ ] Database setup (PostgreSQL)
-- [ ] Schema design (URLs table)
-- [ ] Basic API routes (POST /shorten, GET /:shortCode)
-- [ ] Short code generation algorithm
+- [x] Project initialization (package.json, folder structure)
+- [x] Database setup (PostgreSQL)
+- [x] Schema design (URLs table)
+- [x] Basic API routes (POST /shorten, GET /:shortCode)
+- [x] Short code generation algorithm
 
 **Days 3-4: Features**
 
-- [ ] Redirect functionality
-- [ ] Click tracking
-- [ ] Custom aliases
+- [x] Redirect functionality
+- [x] Click tracking
+- [x] Custom aliases
 - [ ] Link expiration
 - [ ] Input validation
 
