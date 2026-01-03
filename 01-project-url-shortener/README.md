@@ -78,7 +78,7 @@ _You can swap technologies, but document why!_
 - [x] Redirect functionality
 - [x] Click tracking
 - [x] Custom aliases
-- [ ] Link expiration
+- [x] Link expiration
 - [ ] Input validation
 
 **Days 5-7: Testing & Documentation**
