@@ -42,18 +42,18 @@ class UrlController {
         });
       }
 
-      let expirationDate = null;
+      let expiration = null;
       if (expiresIn) {
-        expirationDate = new Date(Date.now() + expiresIn * 1000);
+        expiration = new Date(Date.now() + expiresIn * 1000).toISOString();
       } else if (expiresAt) {
-        expirationDate = new Date(expiresAt);
+        expiration = new Date(expiresAt).toISOString();
       }
 
       // Create short URL
       const result = await urlService.createShortUrl(
         url,
         customAlias || null,
-        expirationDate
+        expiration
       );
 
       await cacheService.set(result.short_code, result);

@@ -15,13 +15,12 @@ class UrlService {
    * Create a shortened URL
    * @param {string} originalUrl - The URL to shorten
    * @param {string} customAlias - Optional custom short code
-   * @param {Date} expirationDate - Optional expiration date
+   * @param {string} expiresAt - Optional expiration date ISO string
    * @returns {Object} Created URL object
    */
-  async createShortUrl(originalUrl, customAlias = null, expirationDate = null) {
+  async createShortUrl(originalUrl, customAlias = null, expiresAt = null) {
     // Normalize and validate URL
     const normalizedUrl = normalizeUrl(originalUrl);
-    const expiresAt = expirationDate.toISOString();
 
     if (!isValidUrl(normalizedUrl)) {
       throw new Error("Invalid URL format");
