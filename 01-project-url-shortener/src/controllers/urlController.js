@@ -1,6 +1,10 @@
 const urlService = require("../services/urlService");
 const analyticsService = require("../services/analyticsService");
 const cacheService = require("../services/cacheService");
+const {
+  isValidExpiresAt,
+  isValidExpiresIn,
+} = require("../utils/expirationValidator");
 
 /**
  * URL Controller
@@ -14,7 +18,7 @@ class UrlController {
    */
   async shortenUrl(req, res) {
     try {
-      const { url, customAlias, expiresAt } = req.body;
+      const { url, customAlias, expiresAt, expiresIn } = req.body;
 
       // Validate input
       if (!url) {
@@ -24,11 +28,32 @@ class UrlController {
         });
       }
 
+      if (expiresAt && !isValidExpiresAt(expiresAt)) {
+        return res.status(400).json({
+          success: false,
+          error: "Invalid expiration date format",
+        });
+      }
+
+      if (expiresIn && !isValidExpiresIn(expiresIn)) {
+        return res.status(400).json({
+          success: false,
+          error: "Invalid expiration duration",
+        });
+      }
+
+      let expirationDate = null;
+      if (expiresIn) {
+        expirationDate = new Date(Date.now() + expiresIn * 1000);
+      } else if (expiresAt) {
+        expirationDate = new Date(expiresAt);
+      }
+
       // Create short URL
       const result = await urlService.createShortUrl(
         url,
         customAlias || null,
-        expiresAt || null
+        expirationDate
       );
 
       // Build response
