@@ -149,3 +149,8 @@ Key learning: Daemons are background processes that run continuously
 **01:31** - mini-projects look duplicate to me, I've already done them in each module exercises section, so skipping it as well
 **01:32** - I can come back to these mini-projects later if I feel stuck and see a need for review
 **01:32** - jumping on the first project - 01-project-url-shortener
+### Sunday, January 4
+
+**18:18** - ai generated a document so-called ADR - architecture decision record. I didn't know this approach. I really liked it. I should learn more about ADRs in the future.
+**18:18** - the ADR generation was or project 2
+**18:19** - I really liked the materials AI generated for project 2. I think I should use the same approach for all the other projects. For this.
