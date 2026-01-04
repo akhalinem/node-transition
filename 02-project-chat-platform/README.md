@@ -118,13 +118,25 @@ By the end of this project, you will:
 - [ ] Graceful server shutdown
 - [ ] Connection health checks (heartbeat/ping-pong)
 
+**Load Testing & Validation** (Critical!):
+
+- [ ] k6 load testing setup with WebSocket scenarios
+- [ ] Bot simulation for realistic chat interactions
+- [ ] Incremental load testing (100 → 1k → 5k → 10k VUs)
+- [ ] Message delivery latency <100ms at p95
+- [ ] CPU usage < 80% under sustained load
+- [ ] Memory stable (no leaks) at 10k connections
+- [ ] Database connection pool managed correctly
+- [ ] Load test report documenting all findings
+
 **Performance & Monitoring**:
 
-- [ ] Handle 10,000 concurrent connections
 - [ ] Rate limiting (messages per minute)
 - [ ] Message delivery confirmation
 - [ ] Connection metrics (active connections, messages/sec)
 - [ ] Error tracking and logging
+- [ ] Prometheus metrics endpoint
+- [ ] Health check endpoints
 
 **Security**:
 
@@ -136,11 +148,15 @@ By the end of this project, you will:
 
 **Success Criteria**:
 
-- System handles 10k concurrent connections
+- Validates 10k concurrent connections with load testing
+- Message latency <200ms at p95 under load
+- Memory usage stable (no leaks visible over 1 hour)
+- CPU < 80% at 10k connections
 - Messages delivered across server instances
 - Server restart doesn't lose messages
 - Comprehensive error handling
 - Complete test coverage
+- Load test report documenting approach and results
 
 ---
 
@@ -280,7 +296,8 @@ CREATE INDEX idx_dm_conversation ON direct_messages(sender_id, recipient_id, cre
 
 - **Containerization**: Docker & Docker Compose
 - **Testing**: Jest, Supertest
-- **Load Testing**: k6 or Artillery
+- **Load Testing**: k6 (recommended) or Artillery
+- **Bot Simulation**: Custom Node.js bots for realistic scenarios
 - **Monitoring**: Prometheus, Grafana (optional)
 
 ---

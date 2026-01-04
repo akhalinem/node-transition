@@ -1099,6 +1099,7 @@ function onUserType() {
    ```
 
 3. **Graceful shutdown**:
+
    ```typescript
    process.on("SIGTERM", async () => {
      console.log("SIGTERM received, closing connections...");
@@ -1166,60 +1167,38 @@ function onUserType() {
    - Batch database operations
    - Use connection pooling efficiently
 
-6. **Load testing**:
+6. **Setup k6 load testing infrastructure** (see `planning/LOAD_TESTING_GUIDE.md`):
 
-   ```javascript
-   // Using k6
-   import ws from "k6/ws";
-   import { check } from "k6";
+   ```bash
+   npm install -D k6
 
-   export let options = {
-     stages: [
-       { duration: "1m", target: 100 },
-       { duration: "3m", target: 1000 },
-       { duration: "1m", target: 0 },
-     ],
-   };
+   # Create tests/load/ directory
+   mkdir -p tests/load
 
-   export default function () {
-     const url = "ws://localhost:3001";
-     const params = { tags: { name: "WSLoadTest" } };
-
-     ws.connect(url, params, function (socket) {
-       socket.on("open", () => {
-         // Authenticate
-         socket.send(
-           JSON.stringify({
-             type: "authenticate",
-             token: "YOUR_JWT_TOKEN",
-           })
-         );
-       });
-
-       socket.on("message", (data) => {
-         check(data, { "message received": (r) => r.length > 0 });
-       });
-     });
-   }
+   # Reference LOAD_TESTING_GUIDE.md for:
+   # - ws-load-test.js (basic load test)
+   # - realistic-scenario.js (advanced scenario)
+   # - ChatBot.ts class (for bot simulation)
+   # - BotManager.ts class (orchestration)
    ```
 
-**Deliverable**: System is resilient and performant
+**Deliverable**: System is resilient, load testing infrastructure ready
 
 ---
 
-### Day 19-21: Production Ready
+### Day 19-21: Load Testing & Production Ready
 
-**Time**: 6-8 hours
+**Time**: 8-10 hours
 
 **Objectives**:
 
+- ✅ Comprehensive load testing (100 → 10k VUs)
+- ✅ Bot simulation running
+- ✅ All performance metrics validated
 - ✅ Security audit complete
-- ✅ All tests passing
-- ✅ Documentation complete
-- ✅ Monitoring set up
 - ✅ Ready for deployment
 
-**Day 19: Security & Testing**:
+**Day 19: Security & Initial Load Tests**:
 
 1. **Security audit checklist**:
 
@@ -1234,86 +1213,256 @@ function onUserType() {
    - [ ] No sensitive data in logs
    - [ ] HTTPS in production (document)
 
-2. **Complete test suite**:
+2. **Baseline load test** (100 VUs):
+
+   ```bash
+   k6 run --vus 100 --duration 5m tests/load/ws-load-test.js
+
+   # Expected results:
+   # - Message latency p95 < 100ms
+   # - No connection errors
+   # - CPU < 30%
+   # - Memory stable
+   ```
+
+3. **Complete test suite**:
    - Unit tests: 80%+ coverage
    - Integration tests: All endpoints
    - WebSocket tests: All events
-   - Load tests: 10k connections
+   - Initial load tests: 100 VUs
 
-**Day 20: Documentation & Monitoring**:
+**Day 20: Incremental Load Testing**:
 
-3. **Documentation**:
+4. **Ramp to 1000 VUs**:
 
-   - Update README with:
-     - Complete setup instructions
-     - API documentation
-     - WebSocket events documentation
-     - Architecture diagrams
-     - Performance characteristics
-   - Add code comments
-   - Create deployment guide
+   ```bash
+   k6 run \
+     --stage "2m:100" \
+     --stage "3m:500" \
+     --stage "5m:1000" \
+     --stage "5m:1000" \
+     --stage "3m:500" \
+     --stage "2m:0" \
+     tests/load/realistic-scenario.js
 
-4. **Monitoring** (optional but recommended):
-
-   ```typescript
-   import prometheus from "prom-client";
-
-   const register = new prometheus.Registry();
-
-   // Metrics
-   const messageCounter = new prometheus.Counter({
-     name: "chat_messages_total",
-     help: "Total number of messages sent",
-     labelNames: ["type"],
-   });
-
-   const activeConnections = new prometheus.Gauge({
-     name: "chat_active_connections",
-     help: "Number of active WebSocket connections",
-   });
-
-   // Expose metrics endpoint
-   app.get("/metrics", async (req, res) => {
-     res.set("Content-Type", register.contentType);
-     res.end(await register.metrics());
-   });
+   # Document results:
+   # - Message latency at each stage
+   # - CPU/memory peaks
+   # - Any errors or warnings
    ```
 
-**Day 21: Final Testing & Deployment Prep**:
+5. **Implement bot simulation**:
 
-5. **Final load test**:
+   Create `src/bots/ChatBot.ts` (see LOAD_TESTING_GUIDE.md):
 
-   - 10,000 concurrent connections
-   - 1,000 messages per second
-   - Monitor performance
-   - Document results
+   - Message pools for realistic conversations
+   - Typing indicator simulation
+   - Personality types (talkative/quiet/random)
+   - Automatic message sending
 
-6. **Create Dockerfile**:
+   Create `src/bots/BotManager.ts`:
 
-   ```dockerfile
-   FROM node:18-alpine
+   - Create multiple bot instances
+   - Staggered connection (prevent connection storm)
+   - Track active connections
 
-   WORKDIR /app
+6. **Run bot simulation alongside load test**:
 
-   COPY package*.json ./
-   RUN npm ci --only=production
+   ```bash
+   # Terminal 1: k6 load test
+   k6 run tests/load/realistic-scenario.js
 
-   COPY . .
-   RUN npm run build
+   # Terminal 2: Bot simulation
+   npm run ts-node src/bots/runner.ts
 
-   EXPOSE 3000 3001
-
-   CMD ["node", "dist/server.js"]
+   # Monitor both for 10+ minutes
+   # Verify bots stay connected and send messages
    ```
 
-7. **Deployment documentation**:
-   - Environment variables
-   - Database migrations
-   - Scaling guide
-   - Monitoring setup
-   - Backup strategy
+7. **Database performance check**:
+   - Run `EXPLAIN ANALYZE` on slowest queries
+   - Add missing indexes if needed
+   - Verify connection pool doesn't exhaust
 
-**Deliverable**: Production-ready chat platform!
+**Day 21: Full Load Testing & Final Validation**:
+
+8. **Ramp to 5000-10000 VUs** (30-40 minute test):
+
+   ```bash
+   k6 run \
+     --stage "5m:100" \
+     --stage "5m:500" \
+     --stage "5m:1000" \
+     --stage "5m:2000" \
+     --stage "5m:5000" \
+     --stage "5m:10000" \
+     --stage "5m:5000" \
+     --stage "5m:0" \
+     tests/load/realistic-scenario.js
+
+   # Save JSON results for detailed analysis
+   k6 run --out json=results-10k.json tests/load/realistic-scenario.js
+   ```
+
+9. **Stress test** (find breaking point):
+
+   ```bash
+   # Keep ramping until system becomes unstable
+   k6 run \
+     --stage "2m:1000" \
+     --stage "2m:2000" \
+     --stage "2m:5000" \
+     --stage "2m:10000" \
+     --stage "2m:15000" \
+     --stage "2m:20000" \
+     tests/load/realistic-scenario.js
+
+   # Document where system becomes unstable
+   # (This might be well above 10k - that's the goal!)
+   ```
+
+10. **Soak test** (stability over time):
+
+    ```bash
+    # Run at 50% of max capacity for 1 hour
+    k6 run \
+      --vus 5000 \
+      --duration 60m \
+      tests/load/realistic-scenario.js
+
+    # Monitor for:
+    # - Memory leaks
+    # - Connection pool issues
+    # - Performance degradation
+    ```
+
+11. **Create LOAD_TEST_REPORT.md**:
+
+    ```markdown
+    # Load Test Report
+
+    ## Executive Summary
+
+    - Successfully tested up to 10,000 concurrent connections
+    - Achieved 1,000+ messages/second throughput
+    - Message latency p95: <200ms
+
+    ## Test Methodology
+
+    - Tool: k6 (JavaScript-based load testing)
+    - Approach: Realistic scenarios with typing/reactions
+    - Duration: Incremental ramps from 100 to 10k VUs
+
+    ## Results by Load Level
+
+    | VUs   | Duration | Msg/sec | Latency p95 | CPU | Memory | Errors |
+    | ----- | -------- | ------- | ----------- | --- | ------ | ------ |
+    | 100   | 5m       | 50      | <50ms       | 15% | 180MB  | 0      |
+    | 500   | 5m       | 250     | <100ms      | 35% | 220MB  | 0      |
+    | 1000  | 5m       | 500     | <150ms      | 55% | 280MB  | 0      |
+    | 5000  | 5m       | 2500    | <200ms      | 75% | 400MB  | <0.1%  |
+    | 10000 | 5m       | 5000+   | <250ms      | 85% | 500MB  | <0.1%  |
+
+    ## Bottleneck Analysis
+
+    - Primary bottleneck: Database write throughput
+    - Secondary: Memory consumption at 10k+ VUs
+    - Network: No saturation (plenty of headroom)
+
+    ## Optimizations Applied
+
+    - Added database indexes on message timestamp
+    - Batch room member list caching in Redis
+    - Connection pooling increased to 50 connections
+
+    ## Recommendations
+
+    - For production 10k concurrent:
+      - Use multi-process clustering
+      - Implement database sharding
+      - Add read replicas for presence queries
+      - Monitor memory closely for GC pauses
+
+    ## Deployment Strategy
+
+    - 2-3 server instances behind load balancer
+    - Redis for session persistence
+    - PostgreSQL read replicas for presence
+    - CDN for file serving
+    ```
+
+12. **Documentation & Monitoring**:
+
+    ```typescript
+    import prometheus from "prom-client";
+
+    const register = new prometheus.Registry();
+
+    // Key metrics
+    const messageCounter = new prometheus.Counter({
+      name: "chat_messages_total",
+      help: "Total messages sent",
+      labelNames: ["type"],
+    });
+
+    const activeConnections = new prometheus.Gauge({
+      name: "chat_active_connections",
+      help: "Active WebSocket connections",
+    });
+
+    const messageLatency = new prometheus.Histogram({
+      name: "chat_message_latency_ms",
+      help: "Message processing latency",
+      buckets: [10, 50, 100, 200, 500],
+    });
+
+    // Expose metrics
+    app.get("/metrics", async (req, res) => {
+      res.set("Content-Type", register.contentType);
+      res.end(await register.metrics());
+    });
+    ```
+
+13. **Deployment documentation**:
+
+    - Environment variables (`.env.production`)
+    - Database migrations (using a migration tool)
+    - Scaling guide (adding more server instances)
+    - Monitoring setup (Prometheus/Grafana if using)
+    - Backup and disaster recovery strategy
+    - Operational runbook for common issues
+
+14. **Create Dockerfile**:
+
+    ```dockerfile
+    FROM node:18-alpine
+
+    WORKDIR /app
+
+    COPY package*.json ./
+    RUN npm ci --only=production
+
+    COPY . .
+    RUN npm run build
+
+    EXPOSE 3000 3001
+
+    CMD ["node", "dist/server.js"]
+    ```
+
+**Success Criteria**:
+
+✅ 10,000 concurrent connections established  
+✅ Message latency p95 < 200ms  
+✅ Memory stable over 1-hour soak test  
+✅ CPU < 85% at peak load  
+✅ Error rate < 0.1%  
+✅ 1000+ messages/second throughput  
+✅ Load test report complete  
+✅ Documentation complete  
+✅ All security checks passed
+
+**Deliverable**: Production-ready, load-tested chat platform with comprehensive documentation!
 
 ---
 
