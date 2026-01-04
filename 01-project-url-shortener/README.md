@@ -20,7 +20,7 @@ Build a production-ready URL shortening service that handles 1,000 requests/seco
 - [x] Redirect short URLs to original URLs (must be <50ms)
 - [x] Track click analytics (views per link, last accessed)
 - [x] Custom aliases (user can choose their short code)
-- [ ] Link expiration
+- [x] Link expiration
 - [ ] Rate limiting (100 requests per IP per minute)
 
 ### Non-Functional Requirements
@@ -99,10 +99,10 @@ _You can swap technologies, but document why!_
 
 **Days 10-11: Optimization**
 
-- [ ] Database query optimization (add indexes)
-- [ ] Implement Redis caching
-- [ ] Connection pooling
-- [ ] Query optimization (EXPLAIN ANALYZE)
+- [x] Database query optimization (add indexes)
+- [x] Implement Redis caching
+- [x] Connection pooling
+- [x] Query optimization (EXPLAIN ANALYZE)
 
 **Days 12-13: Hardening**
 
@@ -113,9 +113,9 @@ _You can swap technologies, but document why!_
 
 **Day 14: Polish**
 
-- [ ] Code review and refactoring
-- [ ] Complete documentation
-- [ ] Final load test
+- [x] Code review and refactoring
+- [x] Complete documentation
+- [x] Final load test
 - [ ] Write retrospective
 
 ---
