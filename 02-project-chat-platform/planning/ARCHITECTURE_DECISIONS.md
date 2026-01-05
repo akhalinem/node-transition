@@ -117,7 +117,63 @@ Single `messages` table with nullable `room_id` and `recipient_id`.
 
 ---
 
-## ADR-003: Authentication Strategy
+## ADR-003: Database Migration Strategy
+
+**Date**: Week 3, Day 1
+**Status**: Decided
+
+### Context
+
+Need a strategy for managing database schema changes over time.
+
+### Decision
+
+Do not use a migration tool for this learning project. Instead, manage schema changes manually with SQL scripts.
+
+### Alternatives Considered
+
+#### Option 1: Use a migration tool (e.g., node-pg-migrate)
+
+**Pros**: Automated schema management, versioning, easy rollbacks  
+**Cons**: Additional complexity, learning curve, overhead for small project
+
+### Option 2: Use an ORM with built-in migrations (e.g., TypeORM, Prisma)
+
+**Pros**: Simplifies data modeling, built-in migrations, active community  
+**Cons**: Adds abstraction, potential performance overhead, learning curve
+
+#### Option 3: Manual SQL scripts (chosen)
+
+**Pros**: Full control, better learning experience, no extra dependencies  
+**Cons**: More manual work, risk of human error, no automated rollback
+
+### Reasoning
+
+Manual SQL scripts provide the most control and a deeper understanding of the database schema. This approach aligns with the project's learning objectives by encouraging exploration of SQL and database design principles.
+
+### Implementation
+
+1. Create a `migrations/` directory in the project root.
+2. For each schema change, create a new SQL script with a timestamped filename (e.g., `202409011430_add_typing_indicator_table.sql`).
+3. Maintain a simple log file (`migrations/MIGRATION_LOG.md`) to track applied migrations.
+4. Apply migrations manually by executing the SQL scripts against the database in order.
+
+### Consequences
+
+- Requires discipline to manage migrations manually
+- No automated rollback; must create separate "down" scripts if needed
+- Encourages learning of SQL and database concepts
+
+### Lessons Learned (To Update During Project)
+
+- [ ] How often did I need rollbacks?
+- [ ] Did manual migrations slow down iteration?
+- [ ] Would a migration tool have helped in Week 5?
+- [ ] What's my recommendation for future projects?
+
+---
+
+## ADR-004: Authentication Strategy
 
 **Date**: Week 3, Day 1  
 **Status**: Decided
@@ -176,7 +232,7 @@ JWT with refresh tokens provides:
 
 ---
 
-## ADR-004: WebSocket Authentication
+## ADR-005: WebSocket Authentication
 
 **Date**: Week 3, Day 3  
 **Status**: Decided
@@ -239,7 +295,7 @@ ws://localhost:3001?token=jwt_token
 
 ---
 
-## ADR-005: Horizontal Scaling Strategy
+## ADR-006: Horizontal Scaling Strategy
 
 **Date**: Week 5, Day 1  
 **Status**: Proposed
@@ -301,7 +357,7 @@ Store all connection state in Redis
 
 ---
 
-## ADR-006: Message Delivery Guarantee
+## ADR-007: Message Delivery Guarantee
 
 **Date**: Week 5, Day 2  
 **Status**: Proposed
@@ -361,7 +417,7 @@ Clients maintain a Set of seen message IDs (last 1000 messages) and ignore dupli
 
 ---
 
-## ADR-007: File Upload Storage
+## ADR-008: File Upload Storage
 
 **Date**: Week 4, Day 4  
 **Status**: Decided
@@ -429,7 +485,7 @@ uploads/
 
 ---
 
-## ADR-008: Typing Indicators Implementation
+## ADR-009: Typing Indicators Implementation
 
 **Date**: Week 4, Day 2  
 **Status**: Proposed
@@ -494,7 +550,7 @@ With multiple servers:
 
 ---
 
-## ADR-009: Rate Limiting Strategy
+## ADR-010: Rate Limiting Strategy
 
 **Date**: Week 5, Day 3  
 **Status**: Proposed
@@ -577,7 +633,7 @@ function checkMessageLimit(userId: string): boolean {
 
 ---
 
-## ADR-010: Error Handling Strategy
+## ADR-011: Error Handling Strategy
 
 **Date**: Week 3, Day 2  
 **Status**: Decided
@@ -695,11 +751,11 @@ app.use((err, req, res, next) => {
 
 As you build the project, document these decisions:
 
-- **ADR-011**: Logging strategy (structured logging format)
-- **ADR-012**: Testing approach (unit vs integration test boundaries)
-- **ADR-013**: Connection health check strategy (heartbeat interval)
-- **ADR-014**: Message history pagination approach
-- **ADR-015**: Deployment strategy (Docker, cloud platform)
+- **ADR-012**: Logging strategy (structured logging format)
+- **ADR-013**: Testing approach (unit vs integration test boundaries)
+- **ADR-014**: Connection health check strategy (heartbeat interval)
+- **ADR-015**: Message history pagination approach
+- **ADR-016**: Deployment strategy (Docker, cloud platform)
 
 ---
 
