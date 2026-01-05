@@ -202,13 +202,12 @@ CREATE TABLE users (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   email VARCHAR(255) UNIQUE NOT NULL,
   username VARCHAR(50) UNIQUE NOT NULL,
+  display_name VARCHAR(100),
   password_hash VARCHAR(255) NOT NULL,
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
-CREATE INDEX idx_users_email ON users(email);
-CREATE INDEX idx_users_username ON users(username);
 ```
 
 ### Rooms Table
@@ -229,19 +228,19 @@ CREATE INDEX idx_rooms_created_by ON rooms(created_by);
 ### Messages Table
 
 ```sql
-CREATE TABLE messages (
+CREATE TABLE room_messages (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  room_id UUID REFERENCES rooms(id) ON DELETE CASCADE,
-  user_id UUID REFERENCES users(id),
+  room_id UUID NOT NULL REFERENCES rooms(id) ON DELETE CASCADE,
+  user_id UUID NOT NULL REFERENCES users(id),
   content TEXT NOT NULL,
   message_type VARCHAR(20) DEFAULT 'text', -- 'text', 'image', 'file'
   file_url VARCHAR(500),
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
-CREATE INDEX idx_messages_room_id ON messages(room_id);
-CREATE INDEX idx_messages_created_at ON messages(created_at DESC);
-CREATE INDEX idx_messages_room_created ON messages(room_id, created_at DESC);
+-- Composite index for paginated message history (most critical query)
+-- Covers: WHERE room_id = ? ORDER BY created_at DESC LIMIT 50
+CREATE INDEX idx_room_messages_room_created ON room_messages(room_id, created_at DESC);
 ```
 
 ### Room Members Table
@@ -262,8 +261,8 @@ CREATE INDEX idx_room_members_user_id ON room_members(user_id);
 ```sql
 CREATE TABLE direct_messages (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  sender_id UUID REFERENCES users(id),
-  recipient_id UUID REFERENCES users(id),
+  sender_id UUID NOT NULL REFERENCES users(id),
+  recipient_id UUID NOT NULL REFERENCES users(id),
   content TEXT NOT NULL,
   message_type VARCHAR(20) DEFAULT 'text',
   file_url VARCHAR(500),
@@ -271,9 +270,19 @@ CREATE TABLE direct_messages (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
+-- Index for "messages sent by user" queries
 CREATE INDEX idx_dm_sender ON direct_messages(sender_id);
+
+-- Index for "messages received by user" queries (inbox view)
 CREATE INDEX idx_dm_recipient ON direct_messages(recipient_id);
+
+-- Composite index for conversation view (one direction)
+-- Covers: WHERE sender_id = ? AND recipient_id = ? ORDER BY created_at DESC
 CREATE INDEX idx_dm_conversation ON direct_messages(sender_id, recipient_id, created_at DESC);
+
+-- Partial index for unread messages (efficient for inbox badge counts)
+-- Only indexes rows where read = FALSE
+CREATE INDEX idx_dm_unread ON direct_messages(recipient_id, created_at DESC) WHERE read = FALSE;
 ```
 
 ---
