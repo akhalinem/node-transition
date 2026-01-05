@@ -203,8 +203,8 @@ CREATE TABLE users (
   email VARCHAR(255) UNIQUE NOT NULL,
   username VARCHAR(50) UNIQUE NOT NULL,
   password_hash VARCHAR(255) NOT NULL,
-  created_at TIMESTAMP DEFAULT NOW(),
-  updated_at TIMESTAMP DEFAULT NOW()
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
 CREATE INDEX idx_users_email ON users(email);
@@ -220,7 +220,7 @@ CREATE TABLE rooms (
   description TEXT,
   is_private BOOLEAN DEFAULT FALSE,
   created_by UUID REFERENCES users(id),
-  created_at TIMESTAMP DEFAULT NOW()
+  created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
 CREATE INDEX idx_rooms_created_by ON rooms(created_by);
@@ -236,7 +236,7 @@ CREATE TABLE messages (
   content TEXT NOT NULL,
   message_type VARCHAR(20) DEFAULT 'text', -- 'text', 'image', 'file'
   file_url VARCHAR(500),
-  created_at TIMESTAMP DEFAULT NOW()
+  created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
 CREATE INDEX idx_messages_room_id ON messages(room_id);
@@ -250,7 +250,7 @@ CREATE INDEX idx_messages_room_created ON messages(room_id, created_at DESC);
 CREATE TABLE room_members (
   room_id UUID REFERENCES rooms(id) ON DELETE CASCADE,
   user_id UUID REFERENCES users(id) ON DELETE CASCADE,
-  joined_at TIMESTAMP DEFAULT NOW(),
+  joined_at TIMESTAMPTZ DEFAULT NOW(),
   PRIMARY KEY (room_id, user_id)
 );
 
@@ -268,7 +268,7 @@ CREATE TABLE direct_messages (
   message_type VARCHAR(20) DEFAULT 'text',
   file_url VARCHAR(500),
   read BOOLEAN DEFAULT FALSE,
-  created_at TIMESTAMP DEFAULT NOW()
+  created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
 CREATE INDEX idx_dm_sender ON direct_messages(sender_id);
