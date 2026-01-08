@@ -299,7 +299,7 @@ CREATE INDEX idx_dm_unread ON direct_messages(recipient_id, created_at DESC) WHE
 - **Caching/Pub-Sub**: Redis
 - **Authentication**: jsonwebtoken, bcrypt
 - **File Upload**: multer
-- **Validation**: joi or zod
+- **Validation**: zod
 
 ### DevOps
 
