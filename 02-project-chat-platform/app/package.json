@@ -1,0 +1,27 @@
+{
+  "name": "02-project-chat-platform",
+  "version": "1.0.0",
+  "description": "A simple chat platform project for learning purposes.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "npx tsx",
+    "start": "node dist/index.js",
+    "dev": "nodemon src/index.ts"
+  },
+  "keywords": [],
+  "author": "akhalinem",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^22.19.3",
+    "nodemon": "^3.1.11",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": "^22.0.0"
+  }
+}

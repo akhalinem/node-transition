@@ -28,7 +28,7 @@ npm init -y
 npm install -D typescript @types/node ts-node nodemon @types/express @types/ws @types/bcrypt @types/jsonwebtoken
 
 # Install production dependencies
-npm install express ws pg redis bcrypt jsonwebtoken dotenv cors helmet express-rate-limit joi multer
+npm install express ws pg redis bcrypt jsonwebtoken dotenv cors helmet express-rate-limit zod multer
 
 # Install testing dependencies
 npm install -D jest @types/jest ts-jest supertest @types/supertest
