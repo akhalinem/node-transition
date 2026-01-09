@@ -1,4 +1,4 @@
-import pool from "../database/pool";
+import dbClient from "../config/database";
 
 interface User {
   id: string;
@@ -11,9 +11,10 @@ interface User {
 }
 
 const findUserById = async (id: string): Promise<User | null> => {
-  const result = await pool.query<User>("SELECT * FROM users WHERE id = $1", [
-    id,
-  ]);
+  const result = await dbClient.query<User>(
+    "SELECT * FROM users WHERE id = $1",
+    [id]
+  );
 
   if (result.rows.length === 0) {
     return null;
@@ -23,7 +24,7 @@ const findUserById = async (id: string): Promise<User | null> => {
 };
 
 const findUserByEmail = async (email: string): Promise<User | null> => {
-  const result = await pool.query<User>(
+  const result = await dbClient.query<User>(
     "SELECT * FROM users WHERE email = $1",
     [email]
   );
@@ -38,7 +39,7 @@ const findUserByEmail = async (email: string): Promise<User | null> => {
 const createUser = async (
   userData: Omit<User, "id" | "created_at" | "updated_at">
 ): Promise<User> => {
-  const result = await pool.query<User>(
+  const result = await dbClient.query<User>(
     `INSERT INTO users (email, username, display_name, password_hash)
      VALUES ($1, $2, $3, $4)
      RETURNING *`,

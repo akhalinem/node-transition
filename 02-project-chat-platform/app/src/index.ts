@@ -1,32 +1,20 @@
 import { config } from "./config/environment";
 import redisClient from "./config/redis";
-import pool from "./database/pool";
+import dbClient from "./config/database";
+import app from "./app";
 
 async function start() {
-  console.log("🚀 Starting Chat Platform Server...");
-  console.log(`Environment: ${config.env}`);
-  console.log(`Port: ${config.port}`);
-  console.log(`WebSocket Port: ${config.wsPort}`);
+  await dbClient.connect();
+  console.log("Connected to Database");
+  await redisClient.connect();
+  console.log("Connected to Redis");
 
-  // Test database connection
-  try {
-    const result = await pool.query("SELECT NOW()");
-    console.log("✅ Database connected at:", result.rows[0].now);
-  } catch (error) {
-    console.error("❌ Database connection failed:", error);
-    process.exit(1);
-  }
-
-  // Test Redis connection
-  try {
-    await redisClient.connect();
-    await redisClient.set("test_key", "test_value");
-    const value = await redisClient.get("test_key");
-    console.log("✅ Redis connected and working:", value);
-  } catch (error) {
-    console.error("❌ Redis connection failed:", error);
-    process.exit(1);
-  }
+  app.listen(config.port, () => {
+    console.log(`Server is running on http://localhost:${config.port}`);
+  });
 }
 
-start();
+start().catch((error) => {
+  console.error("Failed to start server:", error);
+  process.exit(1);
+});
