@@ -366,6 +366,45 @@ psql -U postgres -d chatapp < src/database/migrations/001_initial_schema.sql
 
 ---
 
+## Step 7: Redis Setup
+
+1. Install Redis:
+
+```bash
+# macOS
+brew install redis
+brew services start redis
+```
+
+2. Create a Redis client:
+
+```typescript
+import { createClient } from "redis";
+import { config } from "./environment";
+
+export const redisClient = createClient({
+  socket: {
+    host: config.redis.host,
+    port: config.redis.port,
+  },
+  password: config.redis.password,
+});
+
+redisClient.on("connect", () => {
+  console.log("✅ Redis connected");
+});
+
+redisClient.on("error", (err) => {
+  console.error("❌ Redis error:", err);
+});
+
+redisClient.on("ready", () => {
+  console.log("✅ Redis is ready");
+});
+
+export default redisClient;
+```
+
 ## Step 7: Package.json Scripts
 
 Update `package.json`:
@@ -645,6 +684,7 @@ Update `src/server.ts`:
 ```typescript
 import { config } from "./config/environment";
 import pool from "./database/pool";
+import redisClient from "./config/redis";
 
 async function start() {
   console.log("🚀 Starting Chat Platform Server...");
@@ -658,6 +698,17 @@ async function start() {
     console.log("✅ Database connected at:", result.rows[0].now);
   } catch (error) {
     console.error("❌ Database connection failed:", error);
+    process.exit(1);
+  }
+
+  // Test Redis connection
+  try {
+    await redisClient.connect();
+    await redisClient.set("test_key", "test_value");
+    const value = await redisClient.get("test_key");
+    console.log("✅ Redis connected and working:", value);
+  } catch (error) {
+    console.error("❌ Redis connection failed:", error);
     process.exit(1);
   }
 }
