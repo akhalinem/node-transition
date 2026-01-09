@@ -26,6 +26,7 @@ This guide breaks down the 3-week project into daily tasks with clear objectives
      id: string;
      email: string;
      username: string;
+     display_name: string;
      password_hash: string;
      created_at: Date;
      updated_at: Date;
