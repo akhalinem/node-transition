@@ -1,8 +1,7 @@
-interface Message {
+interface NewMessage {
   id: string;
   roomId: string;
   userId: string;
-  username: string;
   content: string;
   createdAt: Date;
 }
@@ -16,7 +15,7 @@ export type ClientMessage =
 export type ServerMessage =
   | { type: "authenticated"; userId: string; username: string }
   | { type: "auth_error"; message: string }
-  | { type: "new_message"; message: Message }
-  | { type: "user_joined"; roomId: string; userId: string }
-  | { type: "user_left"; roomId: string; userId: string }
+  | { type: "new_message"; message: NewMessage }
+  | { type: "user_joined"; userId: string }
+  | { type: "user_left"; userId: string }
   | { type: "error"; message: string };

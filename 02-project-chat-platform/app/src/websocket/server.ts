@@ -3,6 +3,8 @@ import { config } from "../config/environment";
 import { ClientMessage, ServerMessage } from "./events";
 import { handleAuthentication, requireAuth } from "./middleware/wsAuth";
 import connectionManager from "./connectionManager";
+import { handleJoinRoom, handleLeaveRoom } from "./handlers/roomHandler";
+import { handleSendMessage } from "./handlers/messageHandler";
 
 interface AuthenticatedConnection extends WebSocket {
   userId?: string;
@@ -61,15 +63,34 @@ export function createWebSocketServer(): WebSocket.Server {
         // Handle other message types
         switch (message.type) {
           case "join_room":
-            console.log("📨 Message received (not yet implemented):", message);
+            const recentMessages = await handleJoinRoom(
+              connection.userId!,
+              { roomId: message.roomId },
+              connectionManager
+            );
+            connection.send(
+              JSON.stringify({
+                type: "room_history",
+                roomId: message.roomId,
+                messages: recentMessages,
+              })
+            );
             break;
 
           case "leave_room":
-            console.log("📨 Message received (not yet implemented):", message);
+            await handleLeaveRoom(
+              connection.userId!,
+              { roomId: message.roomId },
+              connectionManager
+            );
             break;
 
           case "send_message":
-            console.log("📨 Message received (not yet implemented):", message);
+            await handleSendMessage(
+              connection.userId!,
+              { roomId: message.roomId, content: message.content },
+              connectionManager
+            );
             break;
 
           default:
@@ -99,9 +120,9 @@ export function createWebSocketServer(): WebSocket.Server {
 
       if (connection.userId) {
         connectionManager.removeConnection(connection.userId);
-        console.log(
-          `🔌 WebSocket connection closed for user ${connection.userId}`
-        );
+      console.log(
+        `🔌 WebSocket connection closed for user ${connection.userId}`
+      );
       } else {
         console.log("🔌 WebSocket connection closed for unauthenticated user");
       }

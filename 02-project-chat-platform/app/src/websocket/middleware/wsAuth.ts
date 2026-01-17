@@ -1,5 +1,6 @@
 import WebSocket from "ws";
 import { findUserById } from "../../models/user";
+import { getUserRooms } from "../../models/room";
 import authService from "../../services/authService";
 import { ClientMessage, ServerMessage } from "../events";
 import connectionManager from "../connectionManager";
@@ -21,6 +22,7 @@ export async function handleAuthentication(
   try {
     const payload = await authService.verifyToken(message.token);
     const user = await findUserById(payload.userId);
+    const rooms = await getUserRooms(payload.userId);
 
     if (!user) {
       throw new Error("User not found");
@@ -35,7 +37,7 @@ export async function handleAuthentication(
     connection.isAuthenticated = true;
 
     // Add to connection manager
-    connectionManager.addConnection(userId, username, connection);
+    connectionManager.addConnection(user, rooms, connection);
 
     // Send success message
     const response: ServerMessage = {
@@ -58,6 +60,6 @@ export async function handleAuthentication(
   }
 }
 
-export function requireAuth(ws: AuthenticatedConnection): boolean {
-  return ws.isAuthenticated === true;
+export function requireAuth(connection: AuthenticatedConnection): boolean {
+  return connection.isAuthenticated === true;
 }
