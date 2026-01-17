@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chat Platform WS Client</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Chat Platform WebSocket Client</h1>
+
+    <section class="card">
+      <h2>Connection</h2>
+      <div class="grid">
+        <label>
+          WS URL
+          <input id="wsUrl" type="text" value="ws://localhost:3001" />
+        </label>
+        <label>
+          Access Token
+          <input id="token" type="text" placeholder="Paste JWT access token" />
+        </label>
+      </div>
+      <div class="actions">
+        <button id="connectBtn">Connect</button>
+        <button id="disconnectBtn" disabled>Disconnect</button>
+      </div>
+      <div id="connStatus" class="status">Disconnected</div>
+    </section>
+
+    <section class="card">
+      <h2>Authentication</h2>
+      <p>After connecting, send your JWT token to authenticate.</p>
+      <div class="actions">
+        <button id="authBtn" disabled>Send Authenticate</button>
+      </div>
+      <pre id="authResult" class="pre"></pre>
+    </section>
+
+    <section class="card">
+      <h2>Rooms</h2>
+      <div class="grid">
+        <label>
+          Room ID
+          <input id="roomId" type="text" placeholder="Enter room UUID" />
+        </label>
+      </div>
+      <div class="actions">
+        <button id="joinBtn" disabled>Join Room</button>
+        <button id="leaveBtn" disabled>Leave Room</button>
+      </div>
+      <pre id="roomEvents" class="pre"></pre>
+    </section>
+
+    <section class="card">
+      <h2>Send Message</h2>
+      <div class="grid">
+        <label>
+          Message
+          <input id="messageInput" type="text" placeholder="Type message" />
+        </label>
+      </div>
+      <div class="actions">
+        <button id="sendBtn" disabled>Send</button>
+      </div>
+      <ul id="messages" class="messages"></ul>
+    </section>
+
+    <section class="card">
+      <h2>Raw Log</h2>
+      <pre id="log" class="pre"></pre>
+    </section>
+  </div>
+
+  <script src="/main.js"></script>
+</body>
+</html>
