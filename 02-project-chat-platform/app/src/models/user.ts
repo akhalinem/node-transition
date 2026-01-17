@@ -8,6 +8,7 @@ interface User {
   password_hash: string;
   created_at: Date;
   updated_at: Date;
+  refresh_token?: string | null;
 }
 
 const findUserById = async (id: string): Promise<User | null> => {

@@ -13,11 +13,6 @@ export interface RoomMember {
   joined_at: Date;
 }
 
-export async function findAll(): Promise<Room[]> {
-  const result = await dbClient.query<Room>("SELECT * FROM rooms");
-  return result.rows;
-}
-
 export async function findById(id: string): Promise<Room | null> {
   const result = await dbClient.query<Room>(
     "SELECT * FROM rooms WHERE id = $1",
@@ -74,10 +69,10 @@ export async function getRoomMembers(roomId: string): Promise<RoomMember[]> {
   return result.rows;
 }
 
-export async function getUserRooms(userId: string): Promise<string[]> {
-  const result = await dbClient.query<RoomMember>(
-    "SELECT room_id FROM room_members WHERE user_id = $1",
+export async function getUserRooms(userId: string): Promise<Room[]> {
+  const result = await dbClient.query<Room>(
+    "SELECT rooms.* FROM rooms JOIN room_members ON rooms.id = room_members.room_id WHERE room_members.user_id = $1",
     [userId]
   );
-  return result.rows.map((row) => row.room_id);
+  return result.rows;
 }

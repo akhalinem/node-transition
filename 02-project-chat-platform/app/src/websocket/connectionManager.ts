@@ -1,6 +1,7 @@
 import WebSocket from "ws";
 import { ServerMessage } from "./events";
 import { User } from "../models/user";
+import { Room } from "../models/room";
 
 interface UserConnection {
   userId: string;
@@ -12,12 +13,12 @@ interface UserConnection {
 export class ConnectionManager {
   private connections: Map<string, UserConnection> = new Map();
 
-  addConnection(user: User, rooms: string[], ws: WebSocket): void {
+  addConnection(user: User, rooms: Room[], ws: WebSocket): void {
     this.connections.set(user.id, {
       userId: user.id,
       username: user.username,
       ws,
-      rooms: new Set(rooms),
+      rooms: new Set(rooms.map((room) => room.id)),
     });
   }
 

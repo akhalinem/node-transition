@@ -8,8 +8,9 @@ CREATE TABLE users (
   username VARCHAR(50) UNIQUE NOT NULL,
   display_name VARCHAR(100),
   password_hash VARCHAR(255) NOT NULL,
+  refresh_token VARCHAR(255),
   created_at TIMESTAMPTZ DEFAULT NOW(),
-  updated_at TIMESTAMPTZ DEFAULT NOW()
+  updated_at TIMESTAMPTZ DEFAULT NOW(),
 );
 
 CREATE INDEX idx_users_email ON users(email);

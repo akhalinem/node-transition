@@ -8,6 +8,11 @@ export interface Message {
   created_at: Date;
 }
 
+export interface MessageWithUserInfo extends Message {
+  username: string;
+  user_display_name: string;
+}
+
 export interface CreateMessageInput {
   roomId: string;
   userId: string;
@@ -27,9 +32,17 @@ export async function createMessage({
   return result.rows[0];
 }
 
-export async function findMessagesByRoomId(roomId: string): Promise<Message[]> {
-  const result = await dbClient.query<Message>(
-    "SELECT * FROM messages WHERE room_id = $1 ORDER BY created_at ASC",
+export async function findMessagesByRoomId(
+  roomId: string
+): Promise<MessageWithUserInfo[]> {
+  const result = await dbClient.query<MessageWithUserInfo>(
+    `
+    SELECT m.*, u.username, u.display_name AS user_display_name
+    FROM messages m
+    JOIN users u ON m.user_id = u.id
+    WHERE m.room_id = $1
+    ORDER BY m.created_at ASC
+  `,
     [roomId]
   );
 
