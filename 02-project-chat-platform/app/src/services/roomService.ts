@@ -58,6 +58,10 @@ export async function getRecentMessages(
   offset: number = 0
 ): Promise<MessageModel.Message[]> {
   await ensureRoomExists(roomId);
-  const messages = await MessageModel.findMessagesByRoomId(roomId);
-  return messages.slice(offset, offset + limit);
+  const messages = await MessageModel.findMessagesByRoomId(
+    roomId,
+    limit,
+    offset
+  );
+  return messages;
 }

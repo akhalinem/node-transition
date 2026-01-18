@@ -33,7 +33,9 @@ export async function createMessage({
 }
 
 export async function findMessagesByRoomId(
-  roomId: string
+  roomId: string,
+  limit: number,
+  offset: number
 ): Promise<MessageWithUserInfo[]> {
   const result = await dbClient.query<MessageWithUserInfo>(
     `
@@ -41,9 +43,10 @@ export async function findMessagesByRoomId(
     FROM messages m
     JOIN users u ON m.user_id = u.id
     WHERE m.room_id = $1
-    ORDER BY m.created_at ASC
+    ORDER BY m.created_at DESC
+    LIMIT $2 OFFSET $3
   `,
-    [roomId]
+    [roomId, limit, offset]
   );
 
   return result.rows;

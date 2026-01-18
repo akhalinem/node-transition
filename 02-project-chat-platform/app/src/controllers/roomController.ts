@@ -33,6 +33,13 @@ class RoomController {
   async getRoomMessages(req: AuthRequest, res: Response, next: NextFunction) {
     try {
       const { roomId } = req.params as { roomId: string };
+      const query = req.query as {
+        limit?: string;
+        offset?: string;
+      };
+
+      const limit = query.limit ? parseInt(query.limit, 10) : undefined;
+      const offset = query.offset ? parseInt(query.offset, 10) : undefined;
 
       if (!roomId) {
         return res.status(400).json({ error: "roomId is required" });
@@ -43,7 +50,11 @@ class RoomController {
       await roomService.ensureMemberExists(roomId, req.userId!);
 
       // Fetch recent messages (default limit 50)
-      const messages = await roomService.getRecentMessages(roomId);
+      const messages = await roomService.getRecentMessages(
+        roomId,
+        limit,
+        offset
+      );
 
       return res.status(200).json({ messages });
     } catch (error) {

@@ -10,6 +10,11 @@
   let currentRoomId = null;
   let reconnectTimeout = null;
 
+  // Pagination State
+  let messageOffset = 0;
+  let isLoadingMore = false;
+  let hasMoreMessages = true;
+
   // DOM Elements
   const authScreen = document.getElementById("authScreen");
   const chatScreen = document.getElementById("chatScreen");
@@ -32,6 +37,14 @@
   const newRoomName = document.getElementById("newRoomName");
   const cancelRoomBtn = document.getElementById("cancelRoomBtn");
   const confirmRoomBtn = document.getElementById("confirmRoomBtn");
+
+  // Infinite Scroll: Listen for scroll events on messages container
+  messagesContainer.addEventListener("scroll", () => {
+    // When user scrolls near the top (within 200px), load more messages
+    if (messagesContainer.scrollTop < 200) {
+      loadMoreMessages();
+    }
+  });
 
   // API Helper with auto-refresh on 401
   async function apiCall(endpoint, options = {}) {
@@ -369,16 +382,14 @@
     sendBtn.disabled = false;
     messagesContainer.innerHTML = ""; // Clear messages
 
+    // Reset pagination state for new room
+    messageOffset = 0;
+    hasMoreMessages = true;
+    isLoadingMore = false;
+
     // Selected room locally (do not send join_room WS message on click)
     // Fetch room history via REST
-    (async () => {
-      try {
-        const data = await apiCall(`/api/rooms/${room.id}/messages`);
-        renderMessages(data.messages || []);
-      } catch (error) {
-        console.error("Failed to load room messages:", error);
-      }
-    })();
+    loadMoreMessages();
 
     renderRooms();
   }
@@ -391,6 +402,47 @@
     sorted.forEach((msg) => addMessage(msg));
   }
 
+  // Load More Messages (for infinite scroll)
+  async function loadMoreMessages() {
+    if (isLoadingMore || !hasMoreMessages || !currentRoomId) {
+      return;
+    }
+
+    isLoadingMore = true;
+
+    try {
+      const data = await apiCall(
+        `/api/rooms/${currentRoomId}/messages?limit=50&offset=${messageOffset}`
+      );
+      const newMessages = data.messages || [];
+
+      // If fewer messages than limit, we've reached the end
+      if (newMessages.length < 50) {
+        hasMoreMessages = false;
+      }
+
+      if (newMessages.length > 0) {
+        // Store current scroll height before adding messages
+        const scrollHeightBefore = messagesContainer.scrollHeight;
+
+        // Prepend new messages
+        newMessages.forEach((msg) => prependMessage(msg));
+
+        // Restore scroll position
+        const scrollHeightAfter = messagesContainer.scrollHeight;
+        const scrollDelta = scrollHeightAfter - scrollHeightBefore;
+        messagesContainer.scrollTop += scrollDelta;
+
+        // Update offset for next load
+        messageOffset += newMessages.length;
+      }
+    } catch (error) {
+      console.error("Failed to load more messages:", error);
+    } finally {
+      isLoadingMore = false;
+    }
+  }
+
   function addMessage(msg) {
     const messageDiv = document.createElement("div");
     messageDiv.className = "message";
@@ -401,13 +453,7 @@
       messageDiv.classList.add("own");
     }
 
-    const time = new Date(msg.createdAt || msg.created_at).toLocaleTimeString(
-      [],
-      {
-        hour: "2-digit",
-        minute: "2-digit",
-      }
-    );
+    const time = formatMessageTime(msg.createdAt || msg.created_at);
 
     messageDiv.innerHTML = `
       <div class="message-header">
@@ -423,10 +469,100 @@
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
   }
 
+  // Prepend message (for infinite scroll loading older messages)
+  function prependMessage(msg) {
+    const messageDiv = document.createElement("div");
+    messageDiv.className = "message";
+
+    const isOwn =
+      msg.userId === currentUser.id || msg.user_id === currentUser.id;
+    if (isOwn) {
+      messageDiv.classList.add("own");
+    }
+
+    const time = formatMessageTime(msg.createdAt || msg.created_at);
+
+    messageDiv.innerHTML = `
+      <div class="message-header">
+        <span class="message-username">${
+          msg.user_display_name || msg.username
+        }</span>
+        <span class="message-time">${time}</span>
+      </div>
+      <div class="message-content">${escapeHtml(msg.content)}</div>
+    `;
+
+    messagesContainer.insertBefore(messageDiv, messagesContainer.firstChild);
+  }
+
   function escapeHtml(text) {
     const div = document.createElement("div");
     div.textContent = text;
     return div.innerHTML;
+  }
+
+  // Format message timestamp in human-readable way
+  function formatMessageTime(input) {
+    const date = new Date(input);
+    const now = new Date();
+
+    // Calculate difference in milliseconds
+    const diffMs = now - date;
+    const diffSecs = Math.floor(diffMs / 1000);
+    const diffMins = Math.floor(diffSecs / 60);
+    const diffHours = Math.floor(diffMins / 60);
+    const diffDays = Math.floor(diffHours / 24);
+
+    // Less than 1 minute
+    if (diffSecs < 60) {
+      return "now";
+    }
+
+    // Less than 1 hour
+    if (diffMins < 60) {
+      return diffMins === 1 ? "1 minute ago" : `${diffMins} minutes ago`;
+    }
+
+    // Less than 24 hours (today)
+    if (diffHours < 24) {
+      return diffHours === 1 ? "1 hour ago" : `${diffHours} hours ago`;
+    }
+
+    // Yesterday
+    const yesterday = new Date(now);
+    yesterday.setDate(yesterday.getDate() - 1);
+    if (date.toDateString() === yesterday.toDateString()) {
+      const time = date.toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+      return `Yesterday at ${time}`;
+    }
+
+    // Same year, different date
+    if (date.getFullYear() === now.getFullYear()) {
+      const dateStr = date.toLocaleDateString([], {
+        month: "short",
+        day: "numeric",
+      });
+      const time = date.toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+      return `${dateStr} at ${time}`;
+    }
+
+    // Different year
+    const dateStr = date.toLocaleDateString([], {
+      month: "short",
+      day: "numeric",
+      year: "2-digit",
+    });
+    const time = date.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    return `${input} at ${time}`;
   }
 
   // Send Message
