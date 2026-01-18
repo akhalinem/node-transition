@@ -7,7 +7,10 @@ class RoomController {
   async getRooms(req: AuthRequest, res: Response, next: NextFunction) {
     try {
       const rooms = await RoomModel.getUserRooms(req.userId!);
-      return res.status(200).json({ rooms });
+      return res.status(200).json({
+        success: true,
+        data: { rooms },
+      });
     } catch (error) {
       next(error);
       return;
@@ -23,7 +26,10 @@ class RoomController {
       }
 
       const room = await RoomModel.createRoom(name.trim());
-      return res.status(201).json({ room });
+      return res.status(201).json({
+        success: true,
+        data: { room },
+      });
     } catch (error) {
       next(error);
       return;
@@ -56,7 +62,10 @@ class RoomController {
         offset
       );
 
-      return res.status(200).json({ messages });
+      return res.status(200).json({
+        success: true,
+        data: { messages },
+      });
     } catch (error) {
       next(error);
       return;

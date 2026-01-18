@@ -99,7 +99,7 @@
       });
 
       if (response.ok) {
-        const data = await response.json();
+        const { data } = await response.json();
         accessToken = data.accessToken;
         return true;
       }
@@ -138,7 +138,7 @@
     const password = document.getElementById("loginPassword").value;
 
     try {
-      const data = await apiCall("/api/auth/login", {
+      const { data } = await apiCall("/api/auth/login", {
         method: "POST",
         body: JSON.stringify({ email, password }),
         skipAuth: true,
@@ -163,7 +163,7 @@
     const password = document.getElementById("registerPassword").value;
 
     try {
-      const data = await apiCall("/api/auth/register", {
+      const { data } = await apiCall("/api/auth/register", {
         method: "POST",
         body: JSON.stringify({ email, username, display_name, password }),
         skipAuth: true,
@@ -213,7 +213,7 @@
   // Load Rooms
   async function loadRooms() {
     try {
-      const data = await apiCall("/api/rooms");
+      const { data } = await apiCall("/api/rooms");
       rooms = data.rooms;
       renderRooms();
     } catch (error) {
@@ -255,7 +255,7 @@
     if (!name) return;
 
     try {
-      const data = await apiCall("/api/rooms", {
+      const { data } = await apiCall("/api/rooms", {
         method: "POST",
         body: JSON.stringify({ name }),
       });
@@ -411,7 +411,7 @@
     isLoadingMore = true;
 
     try {
-      const data = await apiCall(
+      const { data } = await apiCall(
         `/api/rooms/${currentRoomId}/messages?limit=50&offset=${messageOffset}`
       );
       const newMessages = data.messages || [];
@@ -596,7 +596,7 @@
 
       if (refreshed) {
         // Get current user info from server
-        const data = await apiCall("/api/auth/me");
+        const { data } = await apiCall("/api/auth/me");
         currentUser = data.user;
         showChatScreen();
       }

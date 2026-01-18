@@ -37,6 +37,19 @@ const findUserByEmail = async (email: string): Promise<User | null> => {
   return result.rows[0];
 };
 
+const findUserByUsername = async (username: string): Promise<User | null> => {
+  const result = await dbClient.query<User>(
+    "SELECT * FROM users WHERE username = $1",
+    [username]
+  );
+
+  if (result.rows.length === 0) {
+    return null;
+  }
+
+  return result.rows[0];
+};
+
 const createUser = async (
   userData: Omit<User, "id" | "created_at" | "updated_at">
 ): Promise<User> => {
@@ -55,4 +68,4 @@ const createUser = async (
   return result.rows[0];
 };
 
-export { User, findUserById, findUserByEmail, createUser };
+export { User, findUserById, findUserByEmail, findUserByUsername, createUser };

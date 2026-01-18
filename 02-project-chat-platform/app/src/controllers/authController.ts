@@ -1,47 +1,82 @@
-import { Request, Response, NextFunction } from "express";
-import { findUserByEmail, createUser, User } from "../models/user";
+import { Response } from "express";
+import {
+  findUserByEmail,
+  createUser,
+  User,
+  findUserByUsername,
+  findUserById,
+} from "../models/user";
 import authService from "../services/authService";
+import { asyncHandler } from "../middlewares/errorHandler";
+import { AuthRequest } from "../middlewares/authMiddleware";
+import { ValidationUtils } from "../utils/validator";
+import {
+  ConflictError,
+  UnauthorizedError,
+  ValidationError,
+} from "../utils/errors";
+import logger from "../utils/logger";
 
 class AuthController {
-  async register(req: Request, res: Response, next: NextFunction) {
-    try {
-      const { email, username, display_name, password } = req.body;
+  register = asyncHandler(async (req: AuthRequest, res: Response) => {
+    const { email, username, display_name, password } = req.body;
 
-      // Check if email or username already exists
-      const existingUserByEmail = await findUserByEmail(email);
-      if (existingUserByEmail) {
-        return res.status(400).json({ error: "Email already in use" });
-      }
-
-      // Hash password
-      const passwordHash = await authService.hashPassword(password);
-
-      // Create user
-      const newUser: Omit<User, "id" | "created_at" | "updated_at"> = {
-        email,
-        username,
-        display_name,
-        password_hash: passwordHash,
-      };
-      const createdUser = await createUser(newUser);
-
-      // Generate tokens
-      const accessToken = await authService.generateAccessToken(createdUser.id);
-      const refreshToken = await authService.generateRefreshToken(
-        createdUser.id
+    // Validation
+    if (!ValidationUtils.isValidEmail(email)) {
+      throw new ValidationError("Invalid email format");
+    }
+    if (!ValidationUtils.isValidPassword(password)) {
+      throw new ValidationError(
+        "Password must be at least 8 characters long and contain a mix of letters and numbers"
       );
+    }
+    if (!ValidationUtils.isValidUsername(username)) {
+      throw new ValidationError(
+        "Username must be alphanumeric and between 3 to 20 characters"
+      );
+    }
 
-      // Set refresh token in httpOnly cookie
-      res.cookie("refreshToken", refreshToken, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production", // HTTPS only in production
-        sameSite: "strict",
-        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-        path: "/api/auth", // Only send to auth routes
-      });
+    // Check if email already exists
+    const existingUserByEmail = await findUserByEmail(email);
+    if (existingUserByEmail) {
+      throw new ConflictError("Email already in use");
+    }
 
-      // Return response with only access token
-      return res.status(201).json({
+    // Check if username already exists
+    const existingUserByUsername = await findUserByUsername(username);
+    if (existingUserByUsername) {
+      throw new ConflictError("Username already in use");
+    }
+
+    // Hash password
+    const passwordHash = await authService.hashPassword(password);
+
+    // Create user
+    const newUser: Omit<User, "id" | "created_at" | "updated_at"> = {
+      email,
+      username,
+      display_name,
+      password_hash: passwordHash,
+    };
+    const createdUser = await createUser(newUser);
+
+    // Generate tokens
+    const accessToken = await authService.generateAccessToken(createdUser.id);
+    const refreshToken = await authService.generateRefreshToken(createdUser.id);
+
+    // Set refresh token in httpOnly cookie
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production", // HTTPS only in production
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      path: "/api/auth", // Only send to auth routes
+    });
+
+    // Return response with only access token
+    res.status(201).json({
+      success: true,
+      data: {
         user: {
           id: createdUser.id,
           email: createdUser.email,
@@ -49,135 +84,142 @@ class AuthController {
           display_name: createdUser.display_name,
         },
         accessToken,
-      });
-    } catch (error) {
-      next(error);
-      return;
+      },
+    });
+  });
+
+  login = asyncHandler(async (req: AuthRequest, res: Response) => {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      throw new ValidationError("Email and password are required");
     }
-  }
 
-  async login(req: Request, res: Response, next: NextFunction) {
-    try {
-      const { email, password } = req.body;
+    // Find user
+    const userByEmail = await findUserByEmail(email);
+    if (!userByEmail) {
+      throw new UnauthorizedError("Invalid email or password");
+    }
 
-      // Find user by email
-      const user = await findUserByEmail(email);
-      if (!user) {
-        return res.status(400).json({ error: "Invalid email or password" });
-      }
+    // Compare password
+    const isPasswordValid = await authService.comparePassword(
+      password,
+      userByEmail.password_hash
+    );
+    if (!isPasswordValid) {
+      throw new UnauthorizedError("Invalid email or password");
+    }
 
-      // Compare password
-      const isPasswordValid = await authService.comparePassword(
-        password,
-        user.password_hash
-      );
-      if (!isPasswordValid) {
-        return res.status(400).json({ error: "Invalid email or password" });
-      }
+    // Generate tokens
+    const accessToken = await authService.generateAccessToken(userByEmail.id);
+    const refreshToken = await authService.generateRefreshToken(userByEmail.id);
 
-      // Generate tokens
-      const accessToken = await authService.generateAccessToken(user.id);
-      const refreshToken = await authService.generateRefreshToken(user.id);
+    // Set refresh token in httpOnly cookie
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      path: "/api/auth", // Only send to auth routes
+    });
 
-      // Set refresh token in httpOnly cookie
-      res.cookie("refreshToken", refreshToken, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
-        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-        path: "/api/auth",
-      });
+    logger.info("User logged in", {
+      userId: userByEmail.id,
+      email: userByEmail.email,
+    });
 
-      // Return response with only access token
-      return res.status(200).json({
+    res.status(200).json({
+      success: true,
+      data: {
         user: {
-          id: user.id,
-          email: user.email,
-          username: user.username,
-          display_name: user.display_name,
+          id: userByEmail.id,
+          email: userByEmail.email,
+          username: userByEmail.username,
+          display_name: userByEmail.display_name,
         },
         accessToken,
-      });
-    } catch (error) {
-      next(error);
-      return;
+      },
+    });
+  });
+
+  refresh = asyncHandler(async (req: AuthRequest, res: Response) => {
+    const refreshToken = req.cookies.refreshToken;
+
+    if (!refreshToken) {
+      throw new UnauthorizedError("No refresh token provided");
     }
-  }
 
-  async refresh(req: Request, res: Response) {
-    try {
-      const refreshToken = req.cookies.refreshToken;
+    // Verify refresh token
+    const payload = await authService.verifyRefreshToken(refreshToken);
 
-      if (!refreshToken) {
-        return res.status(401).json({ error: "Refresh token not found" });
-      }
+    // Generate new access token
+    const newAccessToken = await authService.generateAccessToken(
+      payload.userId
+    );
 
-      // Verify refresh token
-      const payload = await authService.verifyRefreshToken(refreshToken);
+    logger.debug("Token refreshed", { userId: payload.userId });
 
-      // Generate new access token
-      const newAccessToken = await authService.generateAccessToken(
-        payload.userId
-      );
-
-      // Return new access token
-      return res.status(200).json({
+    res.status(200).json({
+      success: true,
+      data: {
         accessToken: newAccessToken,
-      });
-    } catch (error) {
-      return res
-        .status(401)
-        .json({ error: "Invalid or expired refresh token" });
-    }
-  }
+      },
+    });
+  });
 
-  async logout(req: Request, res: Response, next: NextFunction) {
-    try {
-      await authService.revokeRefreshToken(req.cookies.refreshToken);
+  logout = asyncHandler(async (req: AuthRequest, res: Response) => {
+    const refreshToken = req.cookies.refreshToken;
 
-      // Clear refresh token cookie
-      res.clearCookie("refreshToken", {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
-        path: "/api/auth",
-      });
-
-      return res.status(200).json({ message: "Logged out successfully" });
-    } catch (error) {
-      next(error);
-      return;
-    }
-  }
-
-  async me(req: Request, res: Response, next: NextFunction) {
-    try {
-      const userId = (req as any).userId;
-
-      if (!userId) {
-        return res.status(401).json({ error: "Not authenticated" });
+    if (refreshToken) {
+      // Extract userId from token to revoke it
+      try {
+        const payload = await authService.verifyRefreshToken(refreshToken);
+        await authService.revokeRefreshToken(refreshToken);
+        logger.info("User logged out", { userId: payload.userId });
+      } catch (error) {
+        // Token already invalid, just clear cookie
+        logger.debug("Logout attempted with invalid token");
       }
+    }
 
-      const { findUserById } = require("../models/user");
-      const user = await findUserById(userId);
+    // Clear refresh token cookie
+    res.clearCookie("refreshToken", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      path: "/api/auth",
+    });
 
-      if (!user) {
-        return res.status(404).json({ error: "User not found" });
-      }
+    res.status(200).json({
+      success: true,
+      data: {
+        message: "Logged out successfully",
+      },
+    });
+  });
 
-      return res.status(200).json({
+  me = asyncHandler(async (req: AuthRequest, res: Response) => {
+    if (!req.userId) {
+      throw new UnauthorizedError("User not authenticated");
+    }
+
+    const user = await findUserById(req.userId);
+    if (!user) {
+      throw new UnauthorizedError("User not found");
+    }
+
+    res.status(200).json({
+      success: true,
+      data: {
         user: {
           id: user.id,
           email: user.email,
           username: user.username,
           display_name: user.display_name,
         },
-      });
-    } catch (error) {
-      next(error);
-      return;
-    }
-  }
+      },
+    });
+  });
 }
 
 export default new AuthController();

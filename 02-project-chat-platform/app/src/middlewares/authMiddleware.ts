@@ -1,21 +1,22 @@
 import { Request, Response, NextFunction } from "express";
+import { UnauthorizedError } from "../utils/errors";
 import authService from "../services/authService";
+import { asyncHandler } from "./errorHandler";
 
 export interface AuthRequest extends Request {
   userId?: string;
 }
 
-export async function requireAuth(
-  req: AuthRequest,
-  res: Response,
-  next: NextFunction
-): Promise<void> {
-  try {
+export const requireAuth = asyncHandler(
+  async (req: AuthRequest, _: Response, next: NextFunction): Promise<void> => {
     const authHeader = req.headers.authorization;
 
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      res.status(401).json({ error: "No token provided" });
-      return;
+    if (!authHeader) {
+      throw new UnauthorizedError("No token provided");
+    }
+
+    if (!authHeader.startsWith("Bearer ")) {
+      throw new UnauthorizedError("Invalid token format");
     }
 
     const token = authHeader.substring(7); // Remove "Bearer " prefix
@@ -25,11 +26,7 @@ export async function requireAuth(
       req.userId = payload.userId;
       next();
     } catch (error) {
-      res.status(401).json({ error: "Invalid or expired token" });
-      return;
+      throw new UnauthorizedError("Invalid or expired token");
     }
-  } catch (error) {
-    res.status(500).json({ error: "Internal server error" });
-    return;
   }
-}
+);

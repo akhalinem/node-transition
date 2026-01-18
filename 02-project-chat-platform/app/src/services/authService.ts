@@ -2,63 +2,84 @@ import bcrypt from "bcrypt";
 import jwt, { SignOptions } from "jsonwebtoken";
 import { config } from "../config/environment";
 import dbClient from "../config/database";
+import logger from "../utils/logger";
+import { InternalServerError, UnauthorizedError } from "../utils/errors";
+import { AuthPayload } from "../types";
 
 class AuthService {
-  static readonly SALT_ROUNDS = 10;
-  static readonly ALGORITHM = "HS256";
+  private static readonly SALT_ROUNDS = 10;
+  private static readonly ALGORITHM = "HS256";
 
   async hashPassword(password: string): Promise<string> {
-    const passwordHash = await bcrypt.hash(password, AuthService.SALT_ROUNDS);
-    return passwordHash;
-  }
-
-  async comparePassword(password: string, hash: string): Promise<boolean> {
-    const isMatch = await bcrypt.compare(password, hash);
-    return isMatch;
-  }
-
-  async generateAccessToken(userId: string): Promise<string> {
-    const accessToken = jwt.sign({ userId }, config.jwt.secret, {
-      expiresIn: config.jwt.expiresIn as SignOptions["expiresIn"],
-      algorithm: AuthService.ALGORITHM,
-    });
-
-    return accessToken;
-  }
-
-  async generateRefreshToken(userId: string): Promise<string> {
-    const refreshToken = jwt.sign({ userId }, config.jwt.refreshSecret, {
-      expiresIn: config.jwt.refreshExpiresIn as SignOptions["expiresIn"],
-      algorithm: AuthService.ALGORITHM,
-    });
-    await dbClient.query("UPDATE users SET refresh_token = $1 WHERE id = $2", [
-      refreshToken,
-      userId,
-    ]);
-
-    return refreshToken;
-  }
-
-  async verifyToken(token: string): Promise<{ userId: string }> {
     try {
-      const decoded = jwt.verify(token, config.jwt.secret, {
-        algorithms: [AuthService.ALGORITHM],
-      }) as {
-        userId: string;
-      };
-      return decoded;
+      const passwordHash = await bcrypt.hash(password, AuthService.SALT_ROUNDS);
+      return passwordHash;
     } catch (error) {
-      throw new Error("Invalid token");
+      logger.error("Password hashing failed", { error });
+      throw new InternalServerError("Failed to hash password");
     }
   }
 
-  async verifyRefreshToken(token: string): Promise<{ userId: string }> {
+  async comparePassword(password: string, hash: string): Promise<boolean> {
+    try {
+      const isMatch = await bcrypt.compare(password, hash);
+      return isMatch;
+    } catch (error) {
+      logger.error("Password comparison failed", { error });
+      throw new InternalServerError("Failed to compare password");
+    }
+  }
+
+  async generateAccessToken(userId: string): Promise<string> {
+    try {
+      const accessToken = jwt.sign({ userId }, config.jwt.secret, {
+        expiresIn: config.jwt.expiresIn as SignOptions["expiresIn"],
+        algorithm: AuthService.ALGORITHM,
+      });
+      return accessToken;
+    } catch (error) {
+      logger.error("Access token generation failed", { error });
+      throw new InternalServerError("Failed to generate access token");
+    }
+  }
+
+  async generateRefreshToken(userId: string): Promise<string> {
+    try {
+      const refreshToken = jwt.sign({ userId }, config.jwt.refreshSecret, {
+        expiresIn: config.jwt.refreshExpiresIn as SignOptions["expiresIn"],
+        algorithm: AuthService.ALGORITHM,
+      });
+
+      // Store refresh token in database
+      await dbClient.query(
+        "UPDATE users SET refresh_token = $1 WHERE id = $2",
+        [refreshToken, userId]
+      );
+
+      return refreshToken;
+    } catch (error) {
+      logger.error("Refresh token generation failed", { error });
+      throw new InternalServerError("Failed to generate refresh token");
+    }
+  }
+
+  async verifyToken(token: string): Promise<AuthPayload> {
+    try {
+      const decoded = jwt.verify(token, config.jwt.secret, {
+        algorithms: [AuthService.ALGORITHM],
+      }) as AuthPayload;
+
+      return decoded;
+    } catch (error) {
+      throw new UnauthorizedError("Invalid or expired token");
+    }
+  }
+
+  async verifyRefreshToken(token: string): Promise<AuthPayload> {
     try {
       const decoded = jwt.verify(token, config.jwt.refreshSecret, {
         algorithms: [AuthService.ALGORITHM],
-      }) as {
-        userId: string;
-      };
+      }) as AuthPayload;
 
       // Verify refresh token exists in database
       const result = await dbClient.query(
@@ -72,15 +93,20 @@ class AuthService {
 
       return decoded;
     } catch (error) {
-      throw new Error("Invalid refresh token");
+      throw new UnauthorizedError("Refresh token not found or revoked");
     }
   }
 
   async revokeRefreshToken(token: string): Promise<void> {
-    await dbClient.query(
-      "UPDATE users SET refresh_token = NULL WHERE refresh_token = $1",
-      [token]
-    );
+    try {
+      await dbClient.query(
+        "UPDATE users SET refresh_token = NULL WHERE refresh_token = $1",
+        [token]
+      );
+    } catch (error) {
+      logger.error("Failed to revoke refresh token", { error });
+      throw new InternalServerError("Failed to revoke token");
+    }
   }
 }
 
